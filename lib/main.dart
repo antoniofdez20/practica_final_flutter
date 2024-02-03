@@ -10,14 +10,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Quizz Land',
-      initialRoute: '/login',
-      getPages: [
-        GetPage(name: '/login', page: () => const LoginScreen()),
-        GetPage(name: '/home', page: () => const HomeScreen()),
-      ],
-      theme: ThemeData.light(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Quizz Land',
+        initialRoute: '/login',
+        getPages: [
+          GetPage(name: '/login', page: () => const LoginScreen()),
+          GetPage(name: '/home', page: () => const HomeScreen()),
+        ],
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            color: Color(0xFF001D3D), // Color del AppBar
+            titleTextStyle: TextStyle(
+              fontSize: 24,
+              color: Color(0xFFFFC300), // Color del texto del AppBar
+            ),
+          ),
+          scaffoldBackgroundColor: const Color(0xFF003566),
+          textTheme: const TextTheme(
+            bodyMedium: TextStyle(
+              fontSize: 18,
+              color: Color(0xFFFFC300), // Color del texto
+            ), // Color de fondo de pantalla
+          ),
+          //definicion del estilo de los floating action buttons
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: Color(0xFFFFC300),
+            foregroundColor: Color(0xFF001D3D),
+          ),
+        ));
   }
 }
