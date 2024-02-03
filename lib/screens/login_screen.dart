@@ -29,6 +29,7 @@ class LoginScreen extends StatelessWidget {
                             fontSize: 28, fontWeight: FontWeight.bold)),
                   ),
                   TextFormField(
+                    style: const TextStyle(color: Color(0xFFFFC300)),
                     cursorColor: const Color(0xFFFFC300),
                     decoration: const InputDecoration(
                       labelText: 'Email',
@@ -54,7 +55,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
+                    style: const TextStyle(color: Color(0xFFFFC300)),
                     cursorColor: const Color(0xFFFFC300),
+                    obscureText: true, //oculta la contraseña
                     decoration: InputDecoration(
                       labelText: 'Contrasenya',
                       labelStyle: const TextStyle(color: Color(0xFFFFC300)),
@@ -99,6 +102,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     onPressed: () async {
                       // Lógica de inicio de sesión aquí
+                      Get.offNamed('/home');
                     },
                     child: const Text('Iniciar Sessió'),
                   ),

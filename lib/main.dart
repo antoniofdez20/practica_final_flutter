@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28,
               color: Color(0xFFFFC300), // Color del texto del AppBar
             ),
+            actionsIconTheme: IconThemeData(color: Color(0xFFFFC300)),
           ),
           scaffoldBackgroundColor: const Color(0xFF003566),
           textTheme: const TextTheme(
