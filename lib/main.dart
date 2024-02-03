@@ -15,13 +15,15 @@ class MyApp extends StatelessWidget {
         initialRoute: '/login',
         getPages: [
           GetPage(name: '/login', page: () => const LoginScreen()),
+          GetPage(
+              name: '/create_account', page: () => const CreateAccountScreen()),
           GetPage(name: '/home', page: () => const HomeScreen()),
         ],
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
             color: Color(0xFF001D3D), // Color del AppBar
             titleTextStyle: TextStyle(
-              fontSize: 24,
+              fontSize: 28,
               color: Color(0xFFFFC300), // Color del texto del AppBar
             ),
           ),
