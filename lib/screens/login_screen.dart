@@ -8,7 +8,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userForm = Get.find<FirebaseUsersController>();
+    final controller = Get.find<FirebaseUsersController>();
     //el gesturedetector nos va a permitir que si el usuario toca en cualquier parte de la pantalla que no sean los campos de texto el teclado se escondera
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(32),
               child: Form(
-                key: userForm.formLoginKey,
+                key: controller.formLoginKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,35 +60,40 @@ class LoginScreen extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
-                      style: const TextStyle(color: Color(0xFFFFC300)),
-                      cursorColor: const Color(0xFFFFC300),
-                      obscureText: true, //oculta la contraseña
-                      decoration: InputDecoration(
-                        labelText: 'Contrasenya',
-                        labelStyle: const TextStyle(color: Color(0xFFFFC300)),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF001D3D),
-                            width: 2,
+                    Obx(
+                      () => TextFormField(
+                        style: const TextStyle(color: Color(0xFFFFC300)),
+                        cursorColor: const Color(0xFFFFC300),
+                        obscureText: !controller.isPasswordVisible.value,
+                        decoration: InputDecoration(
+                          labelText: 'Contrasenya',
+                          labelStyle: const TextStyle(color: Color(0xFFFFC300)),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF001D3D),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFFFC300),
-                            width: 2,
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFFFC300),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xFF001D3D),
-                        suffixIcon: IconButton(
-                          icon: const Icon(
-                            Icons.visibility_off_outlined,
-                            color: Colors.grey,
+                          filled: true,
+                          fillColor: const Color(0xFF001D3D),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              controller.isPasswordVisible.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off_outlined,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () =>
+                                controller.togglePasswordVisibility(),
                           ),
-                          onPressed: () {},
                         ),
                       ),
                     ),

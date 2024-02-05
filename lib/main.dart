@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Quizz Land',
       initialRoute: '/login',
 
-      /// utilizar lazyPut  instanciar un controlador o servicio solo cuando realmente se necesita,
+      /// utilizar lazyPut para instanciar un controlador o servicio solo cuando realmente se necesita,
       /// lo cual es útil para mejorar la eficiencia de memoria y el rendimiento de la aplicación.
       getPages: [
         GetPage(

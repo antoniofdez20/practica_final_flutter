@@ -8,7 +8,7 @@ class CreateAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userForm = Get.find<FirebaseUsersController>();
+    final controller = Get.find<FirebaseUsersController>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -21,7 +21,7 @@ class CreateAccountScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(32),
               child: Form(
-                key: userForm.formCreateKey,
+                key: controller.formCreateKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,6 +32,32 @@ class CreateAccountScreen extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 28, fontWeight: FontWeight.bold)),
                     ),
+                    TextFormField(
+                      style: const TextStyle(color: Color(0xFFFFC300)),
+                      cursorColor: const Color(0xFFFFC300),
+                      decoration: const InputDecoration(
+                        labelText: 'Username',
+                        labelStyle: TextStyle(color: Color(0xFFFFC300)),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF001D3D),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFFFC300),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                        filled: true,
+                        fillColor: Color(0xFF001D3D),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 16),
                     TextFormField(
                       style: const TextStyle(color: Color(0xFFFFC300)),
                       cursorColor: const Color(0xFFFFC300),
@@ -58,68 +84,78 @@ class CreateAccountScreen extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
-                      style: const TextStyle(color: Color(0xFFFFC300)),
-                      cursorColor: const Color(0xFFFFC300),
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Contrasenya',
-                        labelStyle: const TextStyle(color: Color(0xFFFFC300)),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF001D3D),
-                            width: 2,
+                    Obx(
+                      () => TextFormField(
+                        style: const TextStyle(color: Color(0xFFFFC300)),
+                        cursorColor: const Color(0xFFFFC300),
+                        obscureText: !controller.isPasswordVisible.value,
+                        decoration: InputDecoration(
+                          labelText: 'Contrasenya',
+                          labelStyle: const TextStyle(color: Color(0xFFFFC300)),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF001D3D),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFFFC300),
-                            width: 2,
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFFFC300),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xFF001D3D),
-                        suffixIcon: IconButton(
-                          icon: const Icon(
-                            Icons.visibility_off_outlined,
-                            color: Colors.grey,
+                          filled: true,
+                          fillColor: const Color(0xFF001D3D),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              controller.isPasswordVisible.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off_outlined,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () =>
+                                controller.togglePasswordVisibility(),
                           ),
-                          onPressed: () {},
                         ),
                       ),
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
-                      style: const TextStyle(color: Color(0xFFFFC300)),
-                      cursorColor: const Color(0xFFFFC300),
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Confirmar contrasenya',
-                        labelStyle: const TextStyle(color: Color(0xFFFFC300)),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF001D3D),
-                            width: 2,
+                    Obx(
+                      () => TextFormField(
+                        style: const TextStyle(color: Color(0xFFFFC300)),
+                        cursorColor: const Color(0xFFFFC300),
+                        obscureText: !controller.isConfPswVisible.value,
+                        decoration: InputDecoration(
+                          labelText: 'Confirmar contrasenya',
+                          labelStyle: const TextStyle(color: Color(0xFFFFC300)),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF001D3D),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFFFC300),
-                            width: 2,
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFFFC300),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xFF001D3D),
-                        suffixIcon: IconButton(
-                          icon: const Icon(
-                            Icons.visibility_off_outlined,
-                            color: Colors.grey,
+                          filled: true,
+                          fillColor: const Color(0xFF001D3D),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              controller.isConfPswVisible.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off_outlined,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () =>
+                                controller.toggleConfPswVisibility(),
                           ),
-                          onPressed: () {},
                         ),
                       ),
                     ),
@@ -143,7 +179,7 @@ class CreateAccountScreen extends StatelessWidget {
                           "Registre completat",
                           "Benvingut a Quizz Land",
                           snackPosition: SnackPosition.BOTTOM,
-                          duration: const Duration(seconds: 4),
+                          duration: const Duration(seconds: 2),
                           backgroundColor: const Color(0xFF001D3D),
                           colorText: const Color(0xFFFFC300),
                           icon: const Icon(
