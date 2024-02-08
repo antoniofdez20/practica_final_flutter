@@ -84,6 +84,7 @@ flutter:
   assets:
     - assets/icons/ic_launcher.png
     - assets/icons/ic_launcher_round.png
+    - assets/img/sobre.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
