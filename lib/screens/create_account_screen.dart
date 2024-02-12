@@ -9,6 +9,8 @@ class CreateAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FirebaseUsersController>();
+    final tempUser = controller.tempUser;
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -33,6 +35,15 @@ class CreateAccountScreen extends StatelessWidget {
                               fontSize: 28, fontWeight: FontWeight.bold)),
                     ),
                     TextFormField(
+                      onChanged: (value) => tempUser.update((val) {
+                        val!.username = value;
+                      }),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'El nom d\'usuari és obligatori';
+                        }
+                        return null;
+                      },
                       style: const TextStyle(color: Color(0xFFFFC300)),
                       cursorColor: const Color(0xFFFFC300),
                       decoration: const InputDecoration(
@@ -59,6 +70,15 @@ class CreateAccountScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
+                      onChanged: (value) => tempUser.update((val) {
+                        val!.email = value;
+                      }),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'El correu de l\'usuari és obligatori';
+                        }
+                        return null;
+                      },
                       style: const TextStyle(color: Color(0xFFFFC300)),
                       cursorColor: const Color(0xFFFFC300),
                       decoration: const InputDecoration(
@@ -86,6 +106,15 @@ class CreateAccountScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     Obx(
                       () => TextFormField(
+                        onChanged: (value) => tempUser.update((val) {
+                          val!.contrasenya = value;
+                        }),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'La contrasenya és obligatoria';
+                          }
+                          return null;
+                        },
                         style: const TextStyle(color: Color(0xFFFFC300)),
                         cursorColor: const Color(0xFFFFC300),
                         obscureText: !controller.isPasswordVisible.value,
@@ -124,6 +153,15 @@ class CreateAccountScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     Obx(
                       () => TextFormField(
+                        onChanged: (value) => tempUser.update((val) {
+                          val!.email = value;
+                        }),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Confirma la contrasenya';
+                          }
+                          return null;
+                        },
                         style: const TextStyle(color: Color(0xFFFFC300)),
                         cursorColor: const Color(0xFFFFC300),
                         obscureText: !controller.isConfPswVisible.value,
@@ -175,20 +213,57 @@ class CreateAccountScreen extends StatelessWidget {
                       ),
                       onPressed: () async {
                         // Lógica de inicio de sesión aquí
-                        Get.snackbar(
-                          "Registre completat",
-                          "Benvingut a Quizz Land",
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: const Duration(seconds: 2),
-                          backgroundColor: const Color(0xFF001D3D),
-                          colorText: const Color(0xFFFFC300),
-                          icon: const Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          ),
-                          shouldIconPulse: true,
-                        );
-                        Get.offNamed('/login');
+                        if (controller.formCreateKey.currentState!.validate()) {
+                          try {
+                            // Reemplaza createUser() con tu método para crear el usuario en Firebase
+                            await controller.createUser(controller.tempUser);
+                            // Si todo salió bien, muestra el Snackbar de éxito
+                            Get.snackbar(
+                              "Registre completat",
+                              "Benvingut ${tempUser.value.username} a Quizz Land",
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
+                              backgroundColor: const Color(0xFF001D3D),
+                              colorText: const Color(0xFFFFC300),
+                              icon: const Icon(
+                                Icons.check,
+                                color: Colors.green,
+                              ),
+                              shouldIconPulse: true,
+                            );
+                            // Redirige al usuario a la pantalla de inicio de sesión
+                            Get.offNamed('/login');
+                          } catch (e) {
+                            // Si la creación del usuario falla, muestra el Snackbar de error
+                            Get.snackbar(
+                              "Error",
+                              "No s'ha pogut completar el registre: $e",
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 4),
+                              backgroundColor: const Color(0xFF001D3D),
+                              colorText: const Color(0xFFFFC300),
+                              icon: const Icon(
+                                Icons.error,
+                                color: Colors.red,
+                              ),
+                              shouldIconPulse: true,
+                            );
+                          }
+                        } else {
+                          Get.snackbar(
+                            "Error",
+                            "Completa tots els camps abans de continuar",
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: const Duration(seconds: 2),
+                            backgroundColor: const Color(0xFF001D3D),
+                            colorText: const Color(0xFFFFC300),
+                            icon: const Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
+                            shouldIconPulse: true,
+                          );
+                        }
                       },
                       child: const Text('Crear compte'),
                     ),
@@ -224,3 +299,50 @@ class CreateAccountScreen extends StatelessWidget {
     );
   }
 }
+
+
+/* onPressed: () async {
+  if (controller.formCreateKey.currentState!.validate()) {
+    // Si el formulario es válido, procede a crear el usuario
+    try {
+      // Reemplaza createUser() con tu método para crear el usuario en Firebase
+      await controller.createUser(controller.tempUser.value.toMap());
+      // Si todo salió bien, muestra el Snackbar de éxito
+      Get.snackbar(
+        "Registre completat",
+        "Benvingut a Quizz Land",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 2),
+        backgroundColor: const Color(0xFF001D3D),
+        colorText: const Color(0xFFFFC300),
+        icon: const Icon(
+          Icons.check,
+          color: Colors.green,
+        ),
+        shouldIconPulse: true,
+      );
+      // Redirige al usuario a la pantalla de inicio de sesión
+      Get.offNamed('/login');
+    } catch (e) {
+      // Si la creación del usuario falla, muestra el Snackbar de error
+      Get.snackbar(
+        "Error",
+        "No s'ha pogut completar el registre: $e",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 4),
+        backgroundColor: const Color(0xFF001D3D),
+        colorText: const Color(0xFFFFC300),
+        icon: const Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+        shouldIconPulse: true,
+      );
+    }
+  } else {
+    // Si el formulario no es válido, podrías mostrar un Snackbar o simplemente no hacer nada
+  }
+},
+ */
+
+
