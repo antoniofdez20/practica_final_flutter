@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
+import 'package:practica_final_flutter/utils/custom_colors.dart';
+import 'package:practica_final_flutter/utils/custom_input_decoration.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -35,61 +37,26 @@ class LoginScreen extends StatelessWidget {
                               fontSize: 28, fontWeight: FontWeight.bold)),
                     ),
                     TextFormField(
-                      style: const TextStyle(color: Color(0xFFFFC300)),
-                      cursorColor: const Color(0xFFFFC300),
-                      decoration: const InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(color: Color(0xFFFFC300)),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF001D3D),
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFFFC300),
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        filled: true,
-                        fillColor: Color(0xFF001D3D),
-                      ),
+                      style: const TextStyle(color: MyColors.greenVogue),
+                      cursorColor: MyColors.greenVogue,
+                      decoration: CustomInputDecorations.buildInputDecoration(
+                          labelText: 'Email'),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 16),
                     Obx(
                       () => TextFormField(
-                        style: const TextStyle(color: Color(0xFFFFC300)),
-                        cursorColor: const Color(0xFFFFC300),
+                        style: const TextStyle(color: MyColors.greenVogue),
+                        cursorColor: MyColors.greenVogue,
                         obscureText: !controller.isPasswordVisible.value,
-                        decoration: InputDecoration(
+                        decoration: CustomInputDecorations.buildInputDecoration(
                           labelText: 'Contrasenya',
-                          labelStyle: const TextStyle(color: Color(0xFFFFC300)),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF001D3D),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFFFC300),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                          ),
-                          filled: true,
-                          fillColor: const Color(0xFF001D3D),
                           suffixIcon: IconButton(
                             icon: Icon(
                               controller.isPasswordVisible.value
                                   ? Icons.visibility
                                   : Icons.visibility_off_outlined,
-                              color: Colors.grey,
+                              color: MyColors.greenVogue,
                             ),
                             onPressed: () =>
                                 controller.togglePasswordVisibility(),
@@ -99,18 +66,6 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size.fromWidth(double.maxFinite),
-                        backgroundColor: const Color(0xFFFFC300),
-                        foregroundColor: const Color(0xFF001D3D),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 32,
-                          vertical: 16,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
                       onPressed: () async {
                         // Lógica de inicio de sesión aquí
                         Get.offNamed('/home');
@@ -124,12 +79,12 @@ class LoginScreen extends StatelessWidget {
                           text: TextSpan(children: [
                         const TextSpan(
                           text: 'No tens compte? ',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: MyColors.greenVogue),
                         ),
                         TextSpan(
                           text: 'Crea compte aquí',
                           style: const TextStyle(
-                            color: Color(0xFFFFC300),
+                            color: MyColors.blueCharcoal,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

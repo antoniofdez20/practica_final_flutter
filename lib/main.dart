@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/screens/screens.dart';
-import 'package:practica_final_flutter/screens/store_screen.dart';
-
 import 'utils/theme.dart';
 
 void main() {
@@ -41,6 +39,7 @@ class MyApp extends StatelessWidget {
           }),
         ),
         GetPage(name: '/home', page: () => const HomeScreen()),
+        GetPage(name: '/store', page: () => const StoreScreen()),
       ],
       theme: MyTheme.lightTheme,
     );
