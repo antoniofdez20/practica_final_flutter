@@ -41,7 +41,8 @@ class CreateAccountScreen extends StatelessWidget {
                       onChanged: (value) => tempUser.update((val) {
                         val!.username = value;
                       }),
-                      validator: (value) => Validators.usernameValidator(value),
+                      validator: (value) =>
+                          Validators.usernameValidator(value, controller.users),
                       style: const TextStyle(color: MyColors.greenVogue),
                       cursorColor: MyColors.greenVogue,
                       decoration: CustomInputDecorations.buildInputDecoration(
@@ -53,7 +54,8 @@ class CreateAccountScreen extends StatelessWidget {
                       onChanged: (value) => tempUser.update((val) {
                         val!.email = value;
                       }),
-                      validator: (value) => Validators.emailValidator(value),
+                      validator: (value) =>
+                          Validators.emailValidator(value, controller.users),
                       style: const TextStyle(color: MyColors.greenVogue),
                       cursorColor: MyColors.greenVogue,
                       decoration: CustomInputDecorations.buildInputDecoration(
@@ -89,9 +91,8 @@ class CreateAccountScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     Obx(
                       () => TextFormField(
-                        onChanged: (value) => tempUser.update((val) {
-                          val!.email = value;
-                        }),
+                        onChanged: (value) =>
+                            controller.confirmPassword.value = value,
                         validator: (value) =>
                             Validators.confirmPasswordValidator(
                                 value, tempUser.value.contrasenya),

@@ -15,6 +15,7 @@ class FirebaseUsersController extends GetxController {
   RxList<User> users = <User>[].obs;
   Rx<User> tempUser =
       User(contrasenya: '', email: '', credits: 0, xp: 0, username: '').obs;
+  RxString confirmPassword = ''.obs;
   User? newUser;
 
   FirebaseUsersController() {

@@ -1,21 +1,32 @@
+import 'package:practica_final_flutter/models/models.dart';
+
 class Validators {
-  static String? usernameValidator(String? value) {
+  static String? usernameValidator(String? value, List<User> users) {
     if (value == null || value.isEmpty) return 'El nom d\'usuari és obligatori';
+
     final regex = RegExp(r'^[a-zA-Z0-9_.-]*$');
     if (!regex.hasMatch(value)) return 'Nom d\'usuari no vàlid';
+
+    if (users.any((user) => user.username == value))
+      return 'Aquest nom d\'usuari ja està en ús';
     return null;
   }
 
-  static String? emailValidator(String? value) {
+  static String? emailValidator(String? value, List<User> users) {
     if (value == null || value.isEmpty)
       return 'El correu de l\'usuari és obligatori';
+
     final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!regex.hasMatch(value)) return 'Correu no vàlid';
+
+    if (users.any((user) => user.email == value))
+      return 'Aquest correu ja està en ús';
     return null;
   }
 
   static String? passwordValidator(String? value) {
     if (value == null || value.isEmpty) return 'La contrasenya és obligatoria';
+
     final regex = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
     if (!regex.hasMatch(value))
       return 'La contrasenya ha de tenir almenys 8 caràcters, lletres i números';
