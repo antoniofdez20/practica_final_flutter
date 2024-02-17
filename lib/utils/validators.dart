@@ -12,6 +12,18 @@ class Validators {
     return null;
   }
 
+  static String? emailLoginValidator(String? value, List<User> users) {
+    if (value == null || value.isEmpty) {
+      return 'El correu de l\'usuari és obligatori';
+    }
+
+    if (!users.any((user) => user.email == value)) {
+      return 'Aquest correu no existeix';
+    } else {
+      return null;
+    }
+  }
+
   static String? emailValidator(String? value, List<User> users) {
     if (value == null || value.isEmpty)
       return 'El correu de l\'usuari és obligatori';
@@ -21,6 +33,11 @@ class Validators {
 
     if (users.any((user) => user.email == value))
       return 'Aquest correu ja està en ús';
+    return null;
+  }
+
+  static String? passwordLoginValidator(String? value) {
+    if (value == null || value.isEmpty) return 'La contrasenya és obligatoria';
     return null;
   }
 
@@ -37,5 +54,16 @@ class Validators {
     if (value == null || value.isEmpty) return 'Confirma la contrasenya';
     if (value != password) return 'Les contrasenyes no coincideixen';
     return null;
+  }
+
+  static bool validateLoginCredentials(
+      String email, String password, List<User> users) {
+    final User userFinal = users.firstWhere((user) => user.email == email,
+        orElse: () =>
+            User(email: '', contrasenya: '', credits: 0, xp: 0, username: ''));
+    if (userFinal.contrasenya == password) {
+      return true; // Las credenciales son correctas
+    }
+    return false; // Las credenciales son incorrectas
   }
 }
