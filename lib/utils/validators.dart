@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:practica_final_flutter/models/models.dart';
+import 'package:practica_final_flutter/utils/custom_colors.dart';
 
 class Validators {
   static String? usernameValidator(String? value, List<User> users) {
@@ -12,13 +15,13 @@ class Validators {
     return null;
   }
 
-  static String? emailLoginValidator(String? value, List<User> users) {
+  static String? usernameLoginValidator(String? value, List<User> users) {
     if (value == null || value.isEmpty) {
-      return 'El correu de l\'usuari és obligatori';
+      return 'L\'usuari és obligatori';
     }
 
-    if (!users.any((user) => user.email == value)) {
-      return 'Aquest correu no existeix';
+    if (!users.any((user) => user.username == value)) {
+      return 'Aquest usuari no existeix';
     } else {
       return null;
     }
@@ -57,13 +60,29 @@ class Validators {
   }
 
   static bool validateLoginCredentials(
-      String email, String password, List<User> users) {
-    final User userFinal = users.firstWhere((user) => user.email == email,
+      String username, String password, List<User> users) {
+    final User userFinal = users.firstWhere((user) => user.username == username,
         orElse: () =>
             User(email: '', contrasenya: '', credits: 0, xp: 0, username: ''));
     if (userFinal.contrasenya == password) {
       return true; // Las credenciales son correctas
     }
     return false; // Las credenciales son incorrectas
+  }
+
+  static void showLoginErrorSnackbar() {
+    Get.snackbar(
+      "Error",
+      "No s'ha pogut iniciar sessió, revisa les dades introduïdes",
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 4),
+      backgroundColor: MyColors.greenVogue,
+      colorText: MyColors.selectiveYellow,
+      icon: const Icon(
+        Icons.error,
+        color: Colors.red,
+      ),
+      shouldIconPulse: true,
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/models/models.dart';
+import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/services/services.dart';
 
 class FirebaseUsersController extends GetxController {
@@ -13,10 +14,15 @@ class FirebaseUsersController extends GetxController {
   RxBool isConfPswVisible = false.obs;
 
   RxList<User> users = <User>[].obs;
-  Rx<User> tempUser =
-      User(contrasenya: '', email: '', credits: 0, xp: 0, username: '').obs;
+  Rx<User> tempUser = User(
+          id: PreferencesUserLogin.tempUserID,
+          contrasenya: PreferencesUserLogin.tempPassword,
+          email: PreferencesUserLogin.tempEmail,
+          credits: PreferencesUserLogin.tempCredits,
+          xp: PreferencesUserLogin.tempXP,
+          username: PreferencesUserLogin.tempUsername)
+      .obs;
   RxString confirmPassword = ''.obs;
-  User? newUser;
 
   FirebaseUsersController() {
     loadUsers();
@@ -60,5 +66,40 @@ class FirebaseUsersController extends GetxController {
       // Manejar adecuadamente el error
       print('Error al crear usuario: $e');
     }
+  }
+
+  Future<void> loadUserByID() async {
+    final userID = PreferencesUserLogin.tempUserID;
+
+    try {
+      final userData = await _firebaseRealtimeService.readUserById(userID);
+      if (userData.isNotEmpty) {
+        final user = User.fromMap(userData)..id = userID;
+        tempUser.value = user;
+      }
+    } catch (e) {
+      // Manejar adecuadamente el error
+      print('Error al cargar usuario por ID: $e');
+    }
+  }
+
+  Future<void> saveCredencials(String username, String password) async {
+    final user = users.firstWhereOrNull((u) => u.username == username);
+    if (user != null) {
+      PreferencesUserLogin.tempUserID = user.id!;
+      PreferencesUserLogin.tempUsername = username;
+      PreferencesUserLogin.tempPassword = password;
+      PreferencesUserLogin.tempEmail = user.email;
+      PreferencesUserLogin.tempCredits = user.credits;
+    }
+  }
+
+  void resetCredencials() {
+    PreferencesUserLogin.tempUserID = '';
+    PreferencesUserLogin.tempUsername = '';
+    PreferencesUserLogin.tempPassword = '';
+    PreferencesUserLogin.tempEmail = '';
+    PreferencesUserLogin.tempCredits = 0;
+    PreferencesUserLogin.tempXP = 0;
   }
 }

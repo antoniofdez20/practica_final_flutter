@@ -44,45 +44,42 @@ class LoginScreen extends StatelessWidget {
                             ),
                             TextFormField(
                               onChanged: (value) => tempUser.update((val) {
-                                val!.email = value;
+                                val!.username = value;
                               }),
                               validator: (value) =>
-                                  Validators.emailLoginValidator(
+                                  Validators.usernameLoginValidator(
                                       value, controller.users),
                               style:
                                   const TextStyle(color: MyColors.greenVogue),
                               cursorColor: MyColors.greenVogue,
                               decoration:
                                   CustomInputDecorations.buildInputDecoration(
-                                      labelText: 'Email'),
+                                      labelText: 'Username'),
                               keyboardType: TextInputType.emailAddress,
                             ),
                             const SizedBox(height: 16),
-                            Obx(
-                              () => TextFormField(
-                                onChanged: (value) => tempUser.update((val) {
-                                  val!.contrasenya = value;
-                                }),
-                                validator: (value) =>
-                                    Validators.passwordLoginValidator(value),
-                                style:
-                                    const TextStyle(color: MyColors.greenVogue),
-                                cursorColor: MyColors.greenVogue,
-                                obscureText:
-                                    !controller.isPasswordVisible.value,
-                                decoration:
-                                    CustomInputDecorations.buildInputDecoration(
-                                  labelText: 'Contrasenya',
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      controller.isPasswordVisible.value
-                                          ? Icons.visibility
-                                          : Icons.visibility_off_outlined,
-                                      color: MyColors.greenVogue,
-                                    ),
-                                    onPressed: () =>
-                                        controller.togglePasswordVisibility(),
+                            TextFormField(
+                              onChanged: (value) => tempUser.update((val) {
+                                val!.contrasenya = value;
+                              }),
+                              validator: (value) =>
+                                  Validators.passwordLoginValidator(value),
+                              style:
+                                  const TextStyle(color: MyColors.greenVogue),
+                              cursorColor: MyColors.greenVogue,
+                              obscureText: !controller.isPasswordVisible.value,
+                              decoration:
+                                  CustomInputDecorations.buildInputDecoration(
+                                labelText: 'Contrasenya',
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    controller.isPasswordVisible.value
+                                        ? Icons.visibility
+                                        : Icons.visibility_off_outlined,
+                                    color: MyColors.greenVogue,
                                   ),
+                                  onPressed: () =>
+                                      controller.togglePasswordVisibility(),
                                 ),
                               ),
                             ),
@@ -93,40 +90,20 @@ class LoginScreen extends StatelessWidget {
                                     .validate()) {
                                   bool canLogin =
                                       Validators.validateLoginCredentials(
-                                          controller.tempUser.value.email,
-                                          controller.tempUser.value.contrasenya,
+                                          tempUser.value.username,
+                                          tempUser.value.contrasenya,
                                           controller.users);
                                   if (canLogin) {
+                                    await controller.saveCredencials(
+                                        tempUser.value.username,
+                                        tempUser.value.contrasenya);
+                                    await controller.loadUserByID();
                                     Get.offNamed('/home');
                                   } else {
-                                    Get.snackbar(
-                                      "Error",
-                                      "No s'ha pogut iniciar sessió, revisa les dades introduïdes",
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      duration: const Duration(seconds: 4),
-                                      backgroundColor: MyColors.greenVogue,
-                                      colorText: MyColors.selectiveYellow,
-                                      icon: const Icon(
-                                        Icons.error,
-                                        color: Colors.red,
-                                      ),
-                                      shouldIconPulse: true,
-                                    );
+                                    Validators.showLoginErrorSnackbar();
                                   }
                                 } else {
-                                  Get.snackbar(
-                                    "Error",
-                                    "No s'ha pogut iniciar sessió, revisa les dades introduïdes",
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    duration: const Duration(seconds: 4),
-                                    backgroundColor: MyColors.greenVogue,
-                                    colorText: MyColors.selectiveYellow,
-                                    icon: const Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                    ),
-                                    shouldIconPulse: true,
-                                  );
+                                  Validators.showLoginErrorSnackbar();
                                 }
                               },
                               child: const Text('Iniciar Sessió'),

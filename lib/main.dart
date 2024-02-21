@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
+import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/screens/screens.dart';
 import 'utils/theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); //nos sirve para asegurarnos que el entorno de widgets este inicializado
+  await PreferencesUserLogin.init(); //inicializamos las preferencias de usuario
   Get.put(FirebaseUsersController());
-  runApp(const MyApp());
+  final isLoggedIn = PreferencesUserLogin.tempUsername.isNotEmpty &&
+      PreferencesUserLogin.tempPassword.isNotEmpty;
+  runApp(MyApp(initialRoute: isLoggedIn ? '/home' : '/login'));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+  const MyApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Quizz Land',
-      initialRoute: '/login',
+      initialRoute: initialRoute,
 
       /// utilizar lazyPut para instanciar un controlador o servicio solo cuando realmente se necesita,
       /// lo cual es útil para mejorar la eficiencia de memoria y el rendimiento de la aplicación.

@@ -31,4 +31,19 @@ class FirebaseRealtimeService extends GetConnect {
       print('Usuario creado: ${response.body}');
     }
   }
+
+  Future<Map<String, dynamic>> readUserById(String userId) async {
+    final response = await get('$_baseUrl/users/$userId.json');
+    if (response.status.hasError) {
+      // Si hay un error, manejarlo aquí
+      return Future.error(response.statusText!);
+    } else {
+      // Asegúrate de que el cuerpo de la respuesta no es nulo antes de hacer el cast
+      if (response.body != null) {
+        return response.body;
+      } else {
+        return {};
+      }
+    }
+  }
 }
