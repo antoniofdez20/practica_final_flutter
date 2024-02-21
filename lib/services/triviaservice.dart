@@ -1,9 +1,7 @@
-
-import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
 
-
-class TriviaService {
+class TriviaService extends GetConnect {
   final String _baseUrl = 'https://opentdb.com/api.php';
 
   Future<Preguntas> getTriviaQuestions(String category) async {
@@ -11,22 +9,16 @@ class TriviaService {
       'Geography': '22',
       'History': '23',
       'Art': '25',
-      // ... más categorías si son necesarias
+      // Añade más categorías según sea necesario
     };
 
-    var requestUrl = Uri.parse('$_baseUrl?amount=10&category=${categoryIds[category]}&type=multiple');
-    print("funcionando " + requestUrl.toString());
+    final response = await get('$_baseUrl?amount=10&category=${categoryIds[category]}&type=multiple');
 
-    var response = await http.get(requestUrl);
-
-    print("trivia" + response.body.toString());
-
-    if (response.statusCode == 200) {
-      // Usamos el modelo Preguntas para deserializar el JSON
-      print("object" + response.body);
-      return Preguntas.fromJson(response.body);
+    if (response.status.hasError) {
+      return Future.error('Error al cargar las preguntas de trivia');
     } else {
-      throw Exception('Failed to load trivia');
+      print(response.bodyString); // Imprime el cuerpo de la respuesta
+      return Preguntas.fromJson(response.bodyString!);
     }
   }
 }

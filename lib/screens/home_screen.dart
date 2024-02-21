@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practica_final_flutter/widgets/mydrawer.dart';
 
 import '../controllers/controllers.dart';
 
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text("Quizz Land"),
         actions: [
+          
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () {
@@ -26,8 +28,10 @@ class HomeScreen extends StatelessWidget {
               Get.offAllNamed('/login');
             },
           ),
+          
         ],
       ),
+      drawer: MyDrawer(),
       body: controller.users.isEmpty
           ? const Center(child: CircularProgressIndicator())
           :Padding(
