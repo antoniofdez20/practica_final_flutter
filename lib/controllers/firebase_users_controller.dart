@@ -91,6 +91,7 @@ class FirebaseUsersController extends GetxController {
       PreferencesUserLogin.tempPassword = password;
       PreferencesUserLogin.tempEmail = user.email;
       PreferencesUserLogin.tempCredits = user.credits;
+      PreferencesUserLogin.tempXP = user.xp;
     }
   }
 
