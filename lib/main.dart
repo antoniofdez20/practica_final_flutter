@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
+import 'package:practica_final_flutter/controllers/navigationcontroller.dart';
 import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/screens/screens.dart';
+import 'controllers/themecontroller.dart';
 import 'utils/theme.dart';
 
 void main() async {
@@ -10,6 +12,8 @@ void main() async {
       .ensureInitialized(); //nos sirve para asegurarnos que el entorno de widgets este inicializado
   await PreferencesUserLogin.init(); //inicializamos las preferencias de usuario
   Get.put(FirebaseUsersController());
+  Get.put(NavigationController()); 
+  Get.put(ThemeController());
   final isLoggedIn = PreferencesUserLogin.tempUsername.isNotEmpty &&
       PreferencesUserLogin.tempPassword.isNotEmpty;
   runApp(MyApp(initialRoute: isLoggedIn ? '/home' : '/login'));
