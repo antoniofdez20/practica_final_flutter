@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:practica_final_flutter/widgets/image_button.dart';
 import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:practica_final_flutter/widgets/mydrawer.dart';
-
 import '../widgets/counter_aventatges.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -26,7 +25,7 @@ class StoreScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: Column(
         children: [
           Row(

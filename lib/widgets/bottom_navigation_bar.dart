@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practica_final_flutter/utils/custom_colors.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   const CustomNavigationBar({super.key});
@@ -17,7 +18,9 @@ class CustomNavigationBar extends StatelessWidget {
         children: [
           IconButton(
             icon: Icon(Icons.scoreboard,
-                color: currentRoute == '/login' ? Colors.purple : Colors.grey),
+                color: currentRoute == '/login'
+                    ? MyColors.amber
+                    : MyColors.blueCharcoal),
             onPressed: currentRoute == '/login'
                 ? null
                 : () => Get.offAllNamed('/login'),
@@ -25,7 +28,9 @@ class CustomNavigationBar extends StatelessWidget {
           const SizedBox(width: 48), // Espacio para el botón central
           IconButton(
             icon: Icon(Icons.store,
-                color: currentRoute == '/store' ? Colors.purple : Colors.grey),
+                color: currentRoute == '/store'
+                    ? MyColors.amber
+                    : MyColors.blueCharcoal),
             // Desactiva el botón si ya estás en la StoreScreen
             onPressed: currentRoute == '/store'
                 ? null
