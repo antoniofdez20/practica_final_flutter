@@ -37,17 +37,17 @@ class StoreScreen extends StatelessWidget {
                 children: [
                   // menos25
                   ImageCounter(
-                    imagePath: 'assets/icons/ic_launcher_round.png',
+                    imagePath: 'assets/icons/menos25.png',
                     counter: 100,
                   ),
                   // menos50
                   ImageCounter(
-                    imagePath: 'assets/icons/ic_launcher_round.png',
+                    imagePath: 'assets/icons/menos50.png',
                     counter: 100,
                   ),
                   // resoldre
                   ImageCounter(
-                    imagePath: 'assets/icons/ic_launcher_round.png',
+                    imagePath: 'assets/icons/resolver.png',
                     counter: 100,
                   ),
                 ],
@@ -57,12 +57,12 @@ class StoreScreen extends StatelessWidget {
                 children: [
                   // mult15
                   ImageCounter(
-                    imagePath: 'assets/icons/ic_launcher_round.png',
+                    imagePath: 'assets/icons/mult15.png',
                     counter: 100,
                   ),
                   // mult20
                   ImageCounter(
-                    imagePath: 'assets/icons/ic_launcher_round.png',
+                    imagePath: 'assets/icons/mult20.png',
                     counter: 100,
                   ),
                 ],

@@ -12,8 +12,8 @@ class ImageCounter extends StatelessWidget {
       children: <Widget>[
         Image.asset(
           imagePath,
-          width: 50,
-          height: 50,
+          width: 40,
+          height: 40,
         ), // Muestra la imagen
         const SizedBox(width: 10), // Añade un espacio entre la imagen y el contador
         Text("x$counter", // Muestra el contador
