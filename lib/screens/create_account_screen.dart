@@ -5,6 +5,7 @@ import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 import 'package:practica_final_flutter/utils/custom_input_decoration.dart';
 import 'package:practica_final_flutter/utils/validators.dart';
+import 'package:practica_final_flutter/widgets/top_app_bar.dart';
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
@@ -12,15 +13,13 @@ class CreateAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FirebaseUsersController>();
+    final themeController = Get.find<ThemeController>();
     final tempUser = controller.tempUser;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Quizz Land'),
-        ),
+        appBar: const TopAppBar(title: 'Quizz Land'),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -46,7 +45,8 @@ class CreateAccountScreen extends StatelessWidget {
                       style: const TextStyle(color: MyColors.greenVogue),
                       cursorColor: MyColors.greenVogue,
                       decoration: CustomInputDecorations.buildInputDecoration(
-                          labelText: 'Username'),
+                          labelText: 'Username',
+                          themeController: themeController),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 16),
@@ -59,7 +59,7 @@ class CreateAccountScreen extends StatelessWidget {
                       style: const TextStyle(color: MyColors.greenVogue),
                       cursorColor: MyColors.greenVogue,
                       decoration: CustomInputDecorations.buildInputDecoration(
-                          labelText: 'Email'),
+                          labelText: 'Email', themeController: themeController),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 16),
@@ -75,6 +75,7 @@ class CreateAccountScreen extends StatelessWidget {
                         obscureText: !controller.isPasswordVisible.value,
                         decoration: CustomInputDecorations.buildInputDecoration(
                           labelText: 'Contrasenya',
+                          themeController: themeController,
                           suffixIcon: IconButton(
                             icon: Icon(
                               controller.isPasswordVisible.value
@@ -101,6 +102,7 @@ class CreateAccountScreen extends StatelessWidget {
                         obscureText: !controller.isConfPswVisible.value,
                         decoration: CustomInputDecorations.buildInputDecoration(
                           labelText: 'Confirmar contrasenya',
+                          themeController: themeController,
                           suffixIcon: IconButton(
                             icon: Icon(
                               controller.isConfPswVisible.value

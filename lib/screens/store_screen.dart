@@ -14,7 +14,7 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopAppBar(title: 'Quizzosco'),
+      appBar: const TopAppBar(title: 'Quizzosco'),
       drawer: const MyDrawer(),
       body: Column(
         children: [

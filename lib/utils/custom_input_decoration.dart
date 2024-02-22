@@ -1,30 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:practica_final_flutter/controllers/themecontroller.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 
 class CustomInputDecorations {
   static InputDecoration buildInputDecoration({
     required String labelText,
+    required ThemeController themeController,
     Widget? suffixIcon,
   }) {
     return InputDecoration(
       labelText: labelText,
-      labelStyle: const TextStyle(color: MyColors.greenVogue),
-      enabledBorder: const OutlineInputBorder(
+      labelStyle: TextStyle(
+          color: themeController.isDarkMode.value
+              ? MyColors.amber
+              : MyColors.greenVogue),
+      enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: MyColors.easternBlue,
+          color: themeController.isDarkMode.value
+              ? MyColors.amber
+              : MyColors.greenVogue,
           width: 2,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(16)),
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
-      focusedBorder: const OutlineInputBorder(
+      focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: MyColors.greenVogue,
+          color: themeController.isDarkMode.value
+              ? MyColors.amber
+              : MyColors.greenVogue,
           width: 2,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(16)),
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
       filled: true,
-      fillColor: MyColors.easternBlue,
+      fillColor: themeController.isDarkMode.value
+          ? MyColors.midnightBlue
+          : MyColors.easternBlue,
       suffixIcon: suffixIcon,
     );
   }
