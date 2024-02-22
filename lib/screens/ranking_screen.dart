@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
-
 import '../widgets/mydrawer.dart';
 import '../widgets/top_app_bar.dart';
 
@@ -26,16 +25,16 @@ class _RankingScreenState extends State<RankingScreen> {
   ];
 
   List<User> filteredUsers = [];
-  double _opacity = 0.0; 
+  double _opacity = 0.0;
 
   @override
   void initState() {
     super.initState();
     sortUsers();
-    filterTopFive(); 
+    filterTopFive();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
-        _opacity = 1.0; 
+        _opacity = 1.0;
       });
     });
   }
@@ -52,10 +51,14 @@ class _RankingScreenState extends State<RankingScreen> {
 
   void filterUsers(String query) {
     if (query.isNotEmpty) {
-      List<User> tmpList = users.where((user) =>
-        user.name.toLowerCase().contains(query.toLowerCase())).toList();
+      List<User> tmpList = users
+          .where(
+              (user) => user.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
       setState(() {
-        filteredUsers = tmpList.take(5).toList(); // Limita a los 5 primeros después de filtrar
+        filteredUsers = tmpList
+            .take(5)
+            .toList(); // Limita a los 5 primeros después de filtrar
       });
     } else {
       filterTopFive();
@@ -134,7 +137,8 @@ class _RankingScreenState extends State<RankingScreen> {
                   child: DataTable(
                     columnSpacing: 20,
                     dataRowHeight: 60,
-                    headingRowColor: MaterialStateProperty.all(Colors.deepPurple[100]),
+                    headingRowColor:
+                        MaterialStateProperty.all(Colors.deepPurple[100]),
                     columns: const [
                       DataColumn(label: Text('Posición')),
                       DataColumn(label: Text('Nombre')),
@@ -145,7 +149,9 @@ class _RankingScreenState extends State<RankingScreen> {
                       return DataRow(
                         color: MaterialStateProperty.resolveWith<Color?>(
                           (Set<MaterialState> states) {
-                            return (position % 2 == 0) ? Colors.deepPurple[50] : null;
+                            return (position % 2 == 0)
+                                ? Colors.deepPurple[50]
+                                : null;
                           },
                         ),
                         cells: [
@@ -163,13 +169,13 @@ class _RankingScreenState extends State<RankingScreen> {
         ),
       ),
       bottomNavigationBar: CustomNavigationBar(),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.play_arrow),
-          onPressed: () {
-            Get.offAllNamed('/home');
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.play_arrow),
+        onPressed: () {
+          Get.offAllNamed('/home');
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

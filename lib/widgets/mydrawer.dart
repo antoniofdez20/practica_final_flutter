@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/firebase_users_controller.dart';
@@ -9,7 +7,7 @@ import 'package:practica_final_flutter/utils/theme.dart';
 import 'package:flutter/cupertino.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key? key});
+  const MyDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,40 +83,36 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(80.0), // Ajusta este valor para cambiar el margen alrededor del botón
-                child: SizedBox(
-                  width: 200.0, // Ajusta este valor para cambiar el ancho del botón
-                  height: 55.0, // Ajusta este valor para cambiar la altura del botón
-                  child: ElevatedButton.icon(
-                    icon: const Icon(Icons.exit_to_app), // Define tu icono aquí
-                    label: const Text('LogOut'), // Define tu texto aquí
-                    onPressed: () {
-                      controller.resetCredencials();
-                      Get.offAllNamed('/login');
-                    },
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0), // Ajusta este valor para cambiar el margen alrededor del botón
-                  child: Container(
-                    width: 205.0, // Ajusta este valor para cambiar el ancho del botón
-                    height: 55.0, // Ajusta este valor para cambiar la altura del botón
-                    child: ElevatedButton.icon(
-                      icon: const Icon(Icons.delete), // Define tu icono aquí
-                      label: const Text('Eliminar Compte'), // Define tu texto aquí
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                      ),
+                padding: const EdgeInsets.all(
+                    50), // Añade un padding general para mejor espaciado
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.exit_to_app),
+                      label: const Text('LogOut'),
                       onPressed: () {
-                        // Aquí va tu lógica al presionar el botón
+                        controller.resetCredencials();
+                        Get.offAllNamed('/login');
                       },
                     ),
-                  ),
+                    const SizedBox(height: 20), // Espaciado entre botones
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.delete),
+                      label: const Text('Eliminar Cuenta'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red, // Color del botón
+                      ),
+                      onPressed: () async {
+                        themeController.resetTheme();
+                        await controller.deleteUser();
+                        Get.offAllNamed('/login');
+                      },
+                    ),
+                  ],
                 ),
-              )
+              ),
             ],
           ),
         ),

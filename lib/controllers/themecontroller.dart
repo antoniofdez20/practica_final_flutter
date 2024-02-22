@@ -12,4 +12,10 @@ class ThemeController extends GetxController {
     isDarkMode.value = !isDarkMode.value;
     PreferencesTheme.isDarkMode = isDarkMode.value;
   }
+
+  void resetTheme() {
+    isDarkMode.value = false;
+    PreferencesTheme.isDarkMode = false;
+    Get.changeTheme(MyTheme.lightTheme);
+  }
 }

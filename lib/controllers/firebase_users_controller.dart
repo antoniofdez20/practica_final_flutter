@@ -48,10 +48,6 @@ class FirebaseUsersController extends GetxController {
           users.add(auxUser);
         });
       }
-
-      users.forEach((user) {
-        print('Usuario: ${user.username}');
-      });
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al cargar usuarios: $e');
@@ -60,7 +56,9 @@ class FirebaseUsersController extends GetxController {
 
   Future<void> createUser(Rx<User> tempUser) async {
     try {
-      await _firebaseRealtimeService.addUser(tempUser.value.toMap());
+      final userID =
+          await _firebaseRealtimeService.addUser(tempUser.value.toMap());
+      PreferencesUserLogin.tempUserID = userID;
       loadUsers();
     } catch (e) {
       // Manejar adecuadamente el error
@@ -80,6 +78,18 @@ class FirebaseUsersController extends GetxController {
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al cargar usuario por ID: $e');
+    }
+  }
+
+  Future<void> deleteUser() async {
+    final userID = tempUser.value.id!;
+    try {
+      await _firebaseRealtimeService.deleteUser(userID);
+      resetCredencials();
+      loadUsers();
+    } catch (e) {
+      // Manejar adecuadamente el error
+      print('Error al eliminar usuario: $e');
     }
   }
 

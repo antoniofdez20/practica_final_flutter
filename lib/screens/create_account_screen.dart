@@ -120,8 +120,11 @@ class CreateAccountScreen extends StatelessWidget {
                         // Lógica de inicio de sesión aquí
                         if (controller.formCreateKey.currentState!.validate()) {
                           try {
-                            // Reemplaza createUser() con tu método para crear el usuario en Firebase
                             await controller.createUser(controller.tempUser);
+                            await controller.saveCredencials(
+                                tempUser.value.username,
+                                tempUser.value.contrasenya);
+                            await controller.loadUserByID();
                             // Si todo salió bien, muestra el Snackbar de éxito
                             Get.snackbar(
                               "Registre completat",
@@ -136,8 +139,8 @@ class CreateAccountScreen extends StatelessWidget {
                               ),
                               shouldIconPulse: true,
                             );
-                            // Redirige al usuario a la pantalla de inicio de sesión
-                            Get.offNamed('/login');
+                            // Redirige al usuario al home
+                            Get.offNamed('/home');
                           } catch (e) {
                             // Si la creación del usuario falla, muestra el Snackbar de error
                             Get.snackbar(

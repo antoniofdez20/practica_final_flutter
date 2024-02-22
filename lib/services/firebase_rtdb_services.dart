@@ -22,13 +22,13 @@ class FirebaseRealtimeService extends GetConnect {
     }
   }
 
-  Future<void> addUser(Map<String, dynamic> tempUser) async {
+  Future<String> addUser(Map<String, dynamic> tempUser) async {
     final response = await post('$_baseUrl/users.json', tempUser);
     if (response.status.hasError) {
       return Future.error('Error al crear usuario: ${response.statusText}');
     } else {
-      // Aquí puedes manejar la respuesta de Firebase, por ejemplo, obtener el ID del usuario creado
-      print('Usuario creado: ${response.body}');
+      // Devolver el id del usuario recien creado
+      return response.body['name'];
     }
   }
 
@@ -44,6 +44,15 @@ class FirebaseRealtimeService extends GetConnect {
       } else {
         return {};
       }
+    }
+  }
+
+  Future<void> deleteUser(String userId) async {
+    final response = await delete('$_baseUrl/users/$userId.json');
+    if (response.status.hasError) {
+      return Future.error('Error al eliminar usuario: ${response.statusText}');
+    } else {
+      print('Usuario eliminado');
     }
   }
 }
