@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 
 class RankingScreen extends StatefulWidget {
   const RankingScreen({Key? key}) : super(key: key);
@@ -161,25 +162,14 @@ class _RankingScreenState extends State<RankingScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.leaderboard),
-            label: 'Ranking',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.store),
-            label: 'Store',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.deepPurple,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: CustomNavigationBar(),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.play_arrow),
+          onPressed: () {
+            Get.offAllNamed('/home');
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

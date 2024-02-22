@@ -35,9 +35,9 @@ class JuegoScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors
+                          backgroundColor: Colors
                               .blue, // Añade aquí el color real que necesitas
-                          onPrimary: Colors.white,
+                          foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),

@@ -39,8 +39,8 @@ class HomeScreen extends StatelessWidget {
                     // Botón de Historia
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
-                        onPrimary: Colors.white,
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
                         TriviaService service = TriviaService();
