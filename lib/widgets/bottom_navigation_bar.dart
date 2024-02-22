@@ -17,7 +17,8 @@ class CustomNavigationBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-            icon: Icon(Icons.scoreboard,
+            icon: Icon(Icons.list,
+                size: 35,
                 color: currentRoute == '/ranking'
                     ? MyColors.amber
                     : MyColors.blueCharcoal),
@@ -28,6 +29,7 @@ class CustomNavigationBar extends StatelessWidget {
           const SizedBox(width: 48), // Espacio para el botón central
           IconButton(
             icon: Icon(Icons.store,
+                size: 35,
                 color: currentRoute == '/store'
                     ? MyColors.amber
                     : MyColors.blueCharcoal),

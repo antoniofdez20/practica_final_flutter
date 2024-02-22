@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/screens/juegoscreen.dart';
 import 'package:practica_final_flutter/widgets/mydrawer.dart';
+import 'package:practica_final_flutter/widgets/top_app_bar.dart';
 import '../controllers/controllers.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
 import 'package:practica_final_flutter/services/triviaservice.dart';
@@ -15,19 +16,7 @@ class HomeScreen extends StatelessWidget {
     final controller = Get.find<FirebaseUsersController>();
     return Obx(
       () => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("Quizz Land"),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.exit_to_app),
-              onPressed: () {
-                controller.resetCredencials();
-                Get.offAllNamed('/login');
-              },
-            ),
-          ],
-        ),
+        appBar: TopAppBar(title: 'Quizz Land'),
         drawer: const MyDrawer(),
         body: controller.users.isEmpty
             ? const Center(child: CircularProgressIndicator())

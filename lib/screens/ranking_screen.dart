@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 
+import '../widgets/mydrawer.dart';
+import '../widgets/top_app_bar.dart';
+
 class RankingScreen extends StatefulWidget {
   const RankingScreen({Key? key}) : super(key: key);
 
@@ -82,11 +85,8 @@ class _RankingScreenState extends State<RankingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ranking'),
-        backgroundColor: Colors.deepPurple,
-        automaticallyImplyLeading: false,
-      ),
+      appBar: TopAppBar(title: 'Ranking'),
+      drawer: const MyDrawer(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

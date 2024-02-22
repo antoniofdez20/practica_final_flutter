@@ -6,6 +6,7 @@ import 'package:practica_final_flutter/widgets/image_button.dart';
 import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:practica_final_flutter/widgets/mydrawer.dart';
 import '../widgets/counter_aventatges.dart';
+import '../widgets/top_app_bar.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
@@ -13,18 +14,7 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Quizz Land"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () {
-              Get.offAllNamed('/login');
-            },
-          ),
-        ],
-      ),
+      appBar: TopAppBar(title: 'Quizzosco'),
       drawer: const MyDrawer(),
       body: Column(
         children: [
