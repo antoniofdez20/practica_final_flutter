@@ -93,6 +93,7 @@ class MyDrawer extends StatelessWidget {
                     icon: const Icon(Icons.exit_to_app), // Define tu icono aquí
                     label: const Text('LogOut'), // Define tu texto aquí
                     onPressed: () {
+                      controller.resetCredencials();
                       Get.offAllNamed('/login');
                     },
                   ),
