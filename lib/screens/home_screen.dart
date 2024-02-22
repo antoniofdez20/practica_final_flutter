@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practica_final_flutter/screens/juegoscreen.dart';
 import 'package:practica_final_flutter/widgets/mydrawer.dart';
 
 import '../controllers/controllers.dart';
@@ -39,20 +40,26 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Botón 1
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue, // background color
-                onPrimary: Colors.white, // foreground color
+            // Botón de Historia
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                  onPrimary: Colors.white,
+                ),
+                onPressed: () async {
+                  TriviaService service = TriviaService();
+                  try {
+                    Preguntas preguntas = await service.getTriviaQuestions('History'); 
+                    Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                  } catch (e) {
+                    print("Error: $e");
+                  }
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  child: Text('Historia', style: TextStyle(fontSize: 20)),
+                ),
               ),
-              onPressed: () {
-                // Acción para el Botón 1
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                child: Text('Historia', style: TextStyle(fontSize: 20)),
-              ),
-            ),
             const SizedBox(height: 16), // Espacio entre botones
             // Botón 2
             ElevatedButton(
@@ -64,8 +71,7 @@ class HomeScreen extends StatelessWidget {
               TriviaService service = TriviaService();
               try {
                 Preguntas preguntas = await service.getTriviaQuestions('Geography');
-                print(preguntas.results[0]);
-                print(preguntas.results[0].question);
+                Get.offAll(() => JuegoScreen(preguntas: preguntas));
               } catch (e) {
                 print("error");
               }
@@ -76,14 +82,20 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16), // Espacio entre botones
-            // Botón 3
+            // Botón de Arte
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.red,
                 onPrimary: Colors.white,
               ),
-              onPressed: () {
-                // Acción para el Botón 3
+              onPressed: () async {
+                TriviaService service = TriviaService();
+                try {
+                  Preguntas preguntas = await service.getTriviaQuestions('Art'); // Cambia 'Geography' por 'Art'
+                  Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                } catch (e) {
+                  print("Error: $e");
+                }
               },
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
