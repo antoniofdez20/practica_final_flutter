@@ -1,4 +1,4 @@
-// En juego.dart
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/juegocontroller.dart';
