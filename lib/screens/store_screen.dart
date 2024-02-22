@@ -118,7 +118,7 @@ class StoreScreen extends StatelessWidget {
     // resoldre - 5%
     else if (rnd > 9500) {
       title = "Resoldre la pregunta directament";
-      img = "assets/icons/menos50.png";
+      img = "assets/icons/resolver.png";
     } else {
       title;
       img;
