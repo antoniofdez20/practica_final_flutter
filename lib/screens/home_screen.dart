@@ -50,8 +50,8 @@ class HomeScreen extends StatelessWidget {
                     // Botón 2
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                        onPrimary: Colors.white,
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
                         TriviaService service = TriviaService();
@@ -73,8 +73,8 @@ class HomeScreen extends StatelessWidget {
                     // Botón de Arte
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                        onPrimary: Colors.white,
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
                         TriviaService service = TriviaService();
