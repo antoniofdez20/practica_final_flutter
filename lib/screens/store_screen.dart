@@ -18,50 +18,53 @@ class StoreScreen extends StatelessWidget {
       drawer: const MyDrawer(),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // eliminacion de preguntas
-              Column(
-                children: [
-                  // menos25
-                  ImageCounter(
-                    imagePath: 'assets/icons/menos25.png',
-                    counter: 100,
-                    size: 70,
-                  ),
-                  // menos50
-                  ImageCounter(
-                    imagePath: 'assets/icons/menos50.png',
-                    counter: 100,
-                    size: 60,
-                  ),
-                  // resoldre
-                  ImageCounter(
-                    imagePath: 'assets/icons/resolver.png',
-                    counter: 100,
-                    size: 25,
-                  ),
-                ],
-              ),
-              // multiplicadores
-              Column(
-                children: [
-                  // mult15
-                  ImageCounter(
-                    imagePath: 'assets/icons/mult15.png',
-                    counter: 100,
-                    size: 80,
-                  ),
-                  // mult20
-                  ImageCounter(
-                    imagePath: 'assets/icons/mult20.png',
-                    counter: 100,
-                    size: 50,
-                  ),
-                ],
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // eliminacion de preguntas
+                Column(
+                  children: [
+                    // menos25
+                    ImageCounter(
+                      imagePath: 'assets/icons/menos25.png',
+                      counter: 100,
+                      size: 40,
+                    ),
+                    // menos50
+                    ImageCounter(
+                      imagePath: 'assets/icons/menos50.png',
+                      counter: 100,
+                      size: 40,
+                    ),
+                    // resoldre
+                    ImageCounter(
+                      imagePath: 'assets/icons/resolver.png',
+                      counter: 100,
+                      size: 25,
+                    ),
+                  ],
+                ),
+                // multiplicadores
+                Column(
+                  children: [
+                    // mult15
+                    ImageCounter(
+                      imagePath: 'assets/icons/mult15.png',
+                      counter: 100,
+                      size: 40,
+                    ),
+                    // mult20
+                    ImageCounter(
+                      imagePath: 'assets/icons/mult20.png',
+                      counter: 100,
+                      size: 40,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           // Sobre
           Expanded(
