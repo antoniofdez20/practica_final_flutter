@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class ImageCounter extends StatelessWidget {
   final String imagePath;
   final int counter;
+  final double size;
 
-  ImageCounter({required this.imagePath, required this.counter});
+  ImageCounter({required this.imagePath, required this.counter, required this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +13,8 @@ class ImageCounter extends StatelessWidget {
       children: <Widget>[
         Image.asset(
           imagePath,
-          width: 40,
-          height: 40,
+          width: size,
+          height: size,
         ), // Muestra la imagen
         const SizedBox(width: 10), // Añade un espacio entre la imagen y el contador
         Text("x$counter", // Muestra el contador

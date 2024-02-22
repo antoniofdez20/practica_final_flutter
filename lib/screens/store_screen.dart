@@ -28,16 +28,19 @@ class StoreScreen extends StatelessWidget {
                   ImageCounter(
                     imagePath: 'assets/icons/menos25.png',
                     counter: 100,
+                    size: 70,
                   ),
                   // menos50
                   ImageCounter(
                     imagePath: 'assets/icons/menos50.png',
                     counter: 100,
+                    size: 60,
                   ),
                   // resoldre
                   ImageCounter(
                     imagePath: 'assets/icons/resolver.png',
                     counter: 100,
+                    size: 25,
                   ),
                 ],
               ),
@@ -48,11 +51,13 @@ class StoreScreen extends StatelessWidget {
                   ImageCounter(
                     imagePath: 'assets/icons/mult15.png',
                     counter: 100,
+                    size: 80,
                   ),
                   // mult20
                   ImageCounter(
                     imagePath: 'assets/icons/mult20.png',
                     counter: 100,
+                    size: 50,
                   ),
                 ],
               ),
@@ -88,35 +93,35 @@ class StoreScreen extends StatelessWidget {
   void Opening() {
     int rnd = generateRND();
     String title = "Error!";
-    String img = "assets/img/sobre.png";
+    String img = "assets/icons/advertencia.png";
 
     // mult15 - 35%
     if (rnd <= 3500) {
       title = "Multiplicar els punst per 1.5";
-      img = "assets/img/sobre.png";
+      img = "assets/icons/mult15.png";
     }
     // menos25 - 25%
     else if (rnd > 3500 && rnd <= 6000) {
       title = "Descartar una de les respostes incorrectes";
-      img = "assets/img/sobre.png";
+      img = "assets/icons/menos25.png";
     }
     // mult20 - 20%
     else if (rnd > 6000 && rnd <= 8000) {
       title = "Multiplicar els punst per 2";
-      img = "assets/img/sobre.png";
+      img = "assets/icons/mult20.png";
     }
     // menos50 - 15%
     else if (rnd > 8000 && rnd <= 9500) {
       title = "Descartar dues de les respostes incorrectes";
-      img = "assets/img/sobre.png";
+      img = "assets/icons/menos50.png";
     }
     // resoldre - 5%
     else if (rnd > 9500) {
       title = "Resoldre la pregunta directament";
-      img = "assets/img/sobre.png";
+      img = "assets/icons/menos50.png";
     } else {
-      title = "Error!";
-      img = "assets/img/sobre.png";
+      title;
+      img;
     }
 
     Get.defaultDialog(
