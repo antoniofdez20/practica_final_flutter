@@ -18,12 +18,12 @@ class CustomNavigationBar extends StatelessWidget {
         children: [
           IconButton(
             icon: Icon(Icons.scoreboard,
-                color: currentRoute == '/login'
+                color: currentRoute == '/ranking'
                     ? MyColors.amber
                     : MyColors.blueCharcoal),
-            onPressed: currentRoute == '/login'
+            onPressed: currentRoute == '/ranking'
                 ? null
-                : () => Get.offAllNamed('/login'),
+                : () => Get.offAllNamed('/ranking'),
           ),
           const SizedBox(width: 48), // Espacio para el botón central
           IconButton(

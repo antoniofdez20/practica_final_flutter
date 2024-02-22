@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
           }),
         ),
         GetPage(name: '/store', page: () => const StoreScreen()),
+        GetPage(name: '/ranking', page: () => const RankingScreen()),
       ],
       theme: themeController.currentTheme,
     );
