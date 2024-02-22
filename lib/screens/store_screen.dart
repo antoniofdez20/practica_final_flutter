@@ -75,14 +75,11 @@ class StoreScreen extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 10,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ImageButton(
-                    imagePath: 'assets/img/sobre.png',
-                    onPressed: () {
-                      Opening();
-                    },
-                  ),
+                return ImageButton(
+                  imagePath: 'assets/img/sobre.png',
+                  onPressed: () {
+                    Opening();
+                  }
                 );
               },
             ),
