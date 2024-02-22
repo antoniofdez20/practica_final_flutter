@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/widgets/image_button.dart';
-import 'package:practica_final_flutter/widgets/bottomNavigationBar.dart';
+import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:practica_final_flutter/widgets/mydrawer.dart';
 
 import '../widgets/counter_aventatges.dart';
