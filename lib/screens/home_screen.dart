@@ -7,7 +7,7 @@ import '../controllers/controllers.dart';
 
 import 'package:practica_final_flutter/models/preguntas.dart';
 import 'package:practica_final_flutter/services/triviaservice.dart'; 
-import 'package:practica_final_flutter/widgets/bottomNavigationBar.dart';
+import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
