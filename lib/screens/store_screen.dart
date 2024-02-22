@@ -70,11 +70,22 @@ class StoreScreen extends StatelessWidget {
             ],
           ),
           // Sobre
-          ImageButton(
-            imagePath: 'assets/img/sobre.png',
-            onPressed: () {
-              Opening();
-            },
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ImageButton(
+                    imagePath: 'assets/img/sobre.png',
+                    onPressed: () {
+                      Opening();
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
