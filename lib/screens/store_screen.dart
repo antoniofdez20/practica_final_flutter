@@ -27,13 +27,63 @@ class StoreScreen extends StatelessWidget {
         ],
       ),
       drawer: MyDrawer(),
-      body: Center(
-        child: ImageButton(
-          imagePath: 'assets/img/sobre.png',
-          onPressed: () {
-            Get.offAllNamed('/home');
-          },
-        ),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // eliminacion de preguntas
+              Column(
+                children: [
+                  // menos25
+                  ImageCounter(
+                    imagePath: 'assets/icons/menos25.png',
+                    counter: 100,
+                  ),
+                  // menos50
+                  ImageCounter(
+                    imagePath: 'assets/icons/menos50.png',
+                    counter: 100,
+                  ),
+                  // resoldre
+                  ImageCounter(
+                    imagePath: 'assets/icons/resolver.png',
+                    counter: 100,
+                  ),
+                ],
+              ),
+              // multiplicadores
+              Column(
+                children: [
+                  // mult15
+                  ImageCounter(
+                    imagePath: 'assets/icons/mult15.png',
+                    counter: 100,
+                  ),
+                  // mult20
+                  ImageCounter(
+                    imagePath: 'assets/icons/mult20.png',
+                    counter: 100,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          // Sobre
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return ImageButton(
+                    imagePath: 'assets/img/sobre.png',
+                    onPressed: () {
+                      Opening();
+                    });
+              },
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: const CustomNavigationBar(),
       floatingActionButton: FloatingActionButton(
