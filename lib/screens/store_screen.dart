@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/widgets/image_button.dart';
-import 'package:practica_final_flutter/widgets/bottomNavigationBar.dart';
-import 'package:practica_final_flutter/widgets/mydrawer.dart'; 
+import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
+import 'package:practica_final_flutter/widgets/mydrawer.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
@@ -22,7 +22,7 @@ class StoreScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: Center(
         child: ImageButton(
           imagePath: 'assets/img/sobre.png',
@@ -31,14 +31,14 @@ class StoreScreen extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: CustomNavigationBar(), 
+      bottomNavigationBar: const CustomNavigationBar(),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.play_arrow), 
+        child: const Icon(Icons.play_arrow),
         onPressed: () {
-           Get.offAllNamed('/home');
+          Get.offAllNamed('/home');
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, 
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

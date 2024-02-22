@@ -11,6 +11,7 @@ class MyTheme {
           fontSize: 28,
           color: MyColors.greenVogue, // Color del texto del AppBar
         ),
+        iconTheme: IconThemeData(color: MyColors.greenVogue),
         actionsIconTheme: IconThemeData(color: MyColors.greenVogue),
       ),
 
@@ -55,6 +56,7 @@ class MyTheme {
           fontSize: 28,
           color: MyColors.amber, // Color del texto del AppBar
         ),
+        iconTheme: IconThemeData(color: MyColors.amber),
         actionsIconTheme: IconThemeData(color: MyColors.amber),
       ),
 
