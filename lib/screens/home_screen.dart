@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () async {
                 TriviaService service = TriviaService();
                 try {
-                  Preguntas preguntas = await service.getTriviaQuestions('Art'); // Cambia 'Geography' por 'Art'
+                  Preguntas preguntas = await service.getTriviaQuestions('Art'); 
                   Get.offAll(() => JuegoScreen(preguntas: preguntas));
                 } catch (e) {
                   print("Error: $e");
