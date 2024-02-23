@@ -42,7 +42,7 @@ class StoreScreen extends StatelessWidget {
                     ImageCounter(
                       imagePath: 'assets/icons/resolver.png',
                       counter: 100,
-                      size: 25,
+                      size: 40,
                     ),
                   ],
                 ),
