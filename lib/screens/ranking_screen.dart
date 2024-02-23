@@ -168,14 +168,7 @@ class _RankingScreenState extends State<RankingScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomNavigationBar(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.play_arrow),
-        onPressed: () {
-          Get.offAllNamed('/home');
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: const CustomNavigationBar(),
     );
   }
 }

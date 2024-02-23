@@ -95,12 +95,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-        bottomNavigationBar: CustomNavigationBar(),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.play_arrow),
-          onPressed: () {},
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: const CustomNavigationBar(),
       ),
     );
   }
