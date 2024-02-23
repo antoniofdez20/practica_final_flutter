@@ -20,11 +20,7 @@ class Validators {
       return 'L\'usuari és obligatori';
     }
 
-    if (!users.any((user) => user.username == value)) {
-      return 'Aquest usuari no existeix';
-    } else {
-      return null;
-    }
+    return null;
   }
 
   static String? emailValidator(String? value, List<User> users) {

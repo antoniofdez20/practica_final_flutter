@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
     final controller = Get.find<FirebaseUsersController>();
     return Obx(
       () => Scaffold(
-        appBar: TopAppBar(title: 'Quizz Land'),
+        appBar: const TopAppBar(title: 'Quizz Land'),
         drawer: const MyDrawer(),
         body: controller.users.isEmpty
             ? const Center(child: CircularProgressIndicator())
