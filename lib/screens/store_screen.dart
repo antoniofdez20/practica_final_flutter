@@ -39,7 +39,7 @@ class StoreScreen extends StatelessWidget {
 
           // Aventatges
           Padding(
-            padding: const EdgeInsets.only(bottom: 50, left: 100, right: 100),
+            padding: const EdgeInsets.only(bottom: 25, left: 100, right: 100),
             child: ElevatedButton(
               onPressed: () => _bottomSheet(context, themeController),
               child: const Text('Aventatges'),
@@ -49,15 +49,6 @@ class StoreScreen extends StatelessWidget {
       ),
 
       bottomNavigationBar: const CustomNavigationBar(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.play_arrow),
-        onPressed: () {
-          Get.offAllNamed('/home');
-        },
-      ),
-
-      // btn Play
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

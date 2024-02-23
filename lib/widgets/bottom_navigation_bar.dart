@@ -14,11 +14,8 @@ class CustomNavigationBar extends StatelessWidget {
       // final themeController = Get.find<ThemeController>();
 
     return BottomAppBar(
-      shape: const CircularNotchedRectangle(),
-      notchMargin: 6.0,
-
-      // Color de fondo
-      color: MyColors.midnight,
+      // shape: const CircularNotchedRectangle(),
+      // notchMargin: 6.0,
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -28,18 +25,29 @@ class CustomNavigationBar extends StatelessWidget {
                 size: 35,
                 color: currentRoute == '/ranking'
                     ? MyColors.amber
-                    : MyColors.midnightBlue),
+                    : MyColors.cornflower),
             onPressed: currentRoute == '/ranking'
                 ? null
                 : () => Get.offAllNamed('/ranking'),
           ),
-          const SizedBox(width: 48), // Espacio para el botón central
+          IconButton(
+            icon: Icon(Icons.play_arrow,
+                size: 35,
+                color: currentRoute == '/home'
+                    ? MyColors.amber
+                    : MyColors.cornflower),
+            onPressed: currentRoute == '/home'
+                ? null
+                : () => Get.offAllNamed('/home'),
+          ),
+
+          // const SizedBox(width: ), // Espacio para el botón central
           IconButton(
             icon: Icon(Icons.store,
                 size: 35,
                 color: currentRoute == '/store'
                     ? MyColors.amber
-                    : MyColors.midnightBlue),
+                    : MyColors.cornflower),
             // Desactiva el botón si ya estás en la StoreScreen
             onPressed: currentRoute == '/store'
                 ? null

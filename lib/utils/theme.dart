@@ -15,6 +15,11 @@ class MyTheme {
         actionsIconTheme: IconThemeData(color: MyColors.greenVogue),
       ),
 
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: MyColors.easternBlue,
+      ),
+
+
       // definicion del estilo de la pantalla
       scaffoldBackgroundColor: MyColors.cornflower,
       textTheme: const TextTheme(
@@ -58,6 +63,10 @@ class MyTheme {
         ),
         iconTheme: IconThemeData(color: MyColors.amber),
         actionsIconTheme: IconThemeData(color: MyColors.amber),
+      ),
+
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: MyColors.midnight,
       ),
 
       scaffoldBackgroundColor: MyColors.midnightBlue,
