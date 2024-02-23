@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 
+// import '../controllers/themecontroller.dart';
+
 class CustomNavigationBar extends StatelessWidget {
   const CustomNavigationBar({super.key});
 
@@ -9,10 +11,15 @@ class CustomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     // Identifica la ruta actual
     String currentRoute = Get.currentRoute;
+      // final themeController = Get.find<ThemeController>();
 
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 6.0,
+
+      // Color de fondo
+      color: MyColors.midnight,
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -21,7 +28,7 @@ class CustomNavigationBar extends StatelessWidget {
                 size: 35,
                 color: currentRoute == '/ranking'
                     ? MyColors.amber
-                    : MyColors.blueCharcoal),
+                    : MyColors.midnightBlue),
             onPressed: currentRoute == '/ranking'
                 ? null
                 : () => Get.offAllNamed('/ranking'),
@@ -32,7 +39,7 @@ class CustomNavigationBar extends StatelessWidget {
                 size: 35,
                 color: currentRoute == '/store'
                     ? MyColors.amber
-                    : MyColors.blueCharcoal),
+                    : MyColors.midnightBlue),
             // Desactiva el botón si ya estás en la StoreScreen
             onPressed: currentRoute == '/store'
                 ? null

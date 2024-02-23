@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practica_final_flutter/utils/custom_colors.dart';
 import 'package:practica_final_flutter/widgets/image_button.dart';
 import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:practica_final_flutter/widgets/mydrawer.dart';
+import '../controllers/themecontroller.dart';
 import '../widgets/counter_aventatges.dart';
 import '../widgets/top_app_bar.dart';
 
@@ -13,59 +15,13 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = Get.find<ThemeController>();
+
     return Scaffold(
       appBar: const TopAppBar(title: 'Quizzosco'),
       drawer: const MyDrawer(),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // eliminacion de preguntas
-                Column(
-                  children: [
-                    // menos25
-                    ImageCounter(
-                      imagePath: 'assets/icons/menos25.png',
-                      counter: 100,
-                      size: 40,
-                    ),
-                    // menos50
-                    ImageCounter(
-                      imagePath: 'assets/icons/menos50.png',
-                      counter: 100,
-                      size: 40,
-                    ),
-                    // resoldre
-                    ImageCounter(
-                      imagePath: 'assets/icons/resolver.png',
-                      counter: 100,
-                      size: 25,
-                    ),
-                  ],
-                ),
-                // multiplicadores
-                Column(
-                  children: [
-                    // mult15
-                    ImageCounter(
-                      imagePath: 'assets/icons/mult15.png',
-                      counter: 100,
-                      size: 40,
-                    ),
-                    // mult20
-                    ImageCounter(
-                      imagePath: 'assets/icons/mult20.png',
-                      counter: 100,
-                      size: 40,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
           // Sobre
           Expanded(
             child: ListView.builder(
@@ -75,13 +31,23 @@ class StoreScreen extends StatelessWidget {
                 return ImageButton(
                     imagePath: 'assets/img/sobre.png',
                     onPressed: () {
-                      Opening();
+                      _opening();
                     });
               },
             ),
           ),
+
+          // Aventatges
+          Padding(
+            padding: const EdgeInsets.only(bottom: 50, left: 100, right: 100),
+            child: ElevatedButton(
+              onPressed: () => _bottomSheet(context, themeController),
+              child: const Text('Aventatges'),
+            ),
+          ),
         ],
       ),
+
       bottomNavigationBar: const CustomNavigationBar(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.play_arrow),
@@ -89,12 +55,14 @@ class StoreScreen extends StatelessWidget {
           Get.offAllNamed('/home');
         },
       ),
+
+      // btn Play
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  void Opening() {
-    int rnd = generateRND();
+  _opening() {
+    int rnd = _generateRND();
     String title = "Error!";
     String img = "assets/icons/advertencia.png";
 
@@ -130,19 +98,98 @@ class StoreScreen extends StatelessWidget {
     Get.defaultDialog(
       title: title,
       content: Image.asset(img),
+
+      backgroundColor: MyColors.amber,
+      titleStyle: const TextStyle(
+        color: MyColors.midnight,
+        fontWeight: FontWeight.w500
+      ),
+
       actions: [
         TextButton(
           onPressed: () {
             Get.back();
           },
           child: const Text("Recollir!"),
+          style: TextButton.styleFrom(
+            backgroundColor: MyColors.midnight,
+            foregroundColor: MyColors.amber
+          )
         ),
       ],
+    );  }
+  
+  _bottomSheet(BuildContext context, ThemeController themeController) {
+    Get.bottomSheet(
+      Column(
+        children: [
+          // title
+          const Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          const Text(
+            'Aventatges',
+            style: TextStyle(fontSize: 30),
+          ),
+
+          // mult15
+          ImageCounter(
+            imagePath: 'assets/icons/mult15.png',
+            name: 'Multiplicar per 1.5',
+            counter: 10,
+            size: 50,
+          ),
+
+           // mult20
+          ImageCounter(
+            imagePath: 'assets/icons/mult20.png',
+            name: 'Multiplicar per 2',
+            counter: 10,
+            size: 50,
+          ),
+
+          // menos25
+          ImageCounter(
+            imagePath: 'assets/icons/menos25.png',
+            name: 'Descartar 1',
+            counter: 10,
+            size: 50,
+          ),
+          
+          // menos50
+          ImageCounter(
+            imagePath: 'assets/icons/menos50.png',
+            name: 'Descartar 2',
+            counter: 10,
+            size: 50,
+          ),
+          
+          // resoldre
+          ImageCounter(
+            imagePath: 'assets/icons/resolver.png',
+            name: 'Resoldre',
+            counter: 10,
+            size: 50,
+          ),
+        ],
+      ),
+      
+
+      backgroundColor: themeController.isDarkMode.value
+        ? MyColors.blueCharcoal
+        : MyColors.easternBlue,
+      
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
     );
   }
 }
 
-int generateRND() {
+int _generateRND() {
   final rnd = Random();
   final number = rnd.nextInt(10000);
   return number;
