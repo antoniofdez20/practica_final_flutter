@@ -18,7 +18,7 @@ class StoreScreen extends StatelessWidget {
     final themeController = Get.find<ThemeController>();
 
     return Scaffold(
-      appBar: TopAppBar(title: 'Quizzosco'),
+      appBar: const TopAppBar(title: 'Quizzosco'),
       drawer: const MyDrawer(),
       body: Column(
         children: [

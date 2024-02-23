@@ -5,6 +5,7 @@ import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 import 'package:practica_final_flutter/utils/custom_input_decoration.dart';
 import 'package:practica_final_flutter/utils/validators.dart';
+import 'package:practica_final_flutter/widgets/top_app_bar.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -12,16 +13,14 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FirebaseUsersController>();
+    final themeController = Get.find<ThemeController>();
     final tempUser = controller.tempUser;
     //el gesturedetector nos va a permitir que si el usuario toca en cualquier parte de la pantalla que no sean los campos de texto el teclado se escondera
     return Obx(
       () => GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text('Quizz Land'),
-          ),
+          appBar: const TopAppBar(title: 'Quizz Land'),
           //SafeArea nos permite que el contenido de la pantalla no se superponga con el notch de las diferentes pantallas, los diferentes bordes que puedan tener, etc
           body: controller.users.isEmpty
               ? const Center(child: CircularProgressIndicator())
@@ -49,12 +48,18 @@ class LoginScreen extends StatelessWidget {
                               validator: (value) =>
                                   Validators.usernameLoginValidator(
                                       value, controller.users),
-                              style:
-                                  const TextStyle(color: MyColors.greenVogue),
-                              cursorColor: MyColors.greenVogue,
+                              style: TextStyle(
+                                color: themeController.isDarkMode.value
+                                    ? MyColors.amber
+                                    : MyColors.greenVogue,
+                              ),
+                              cursorColor: themeController.isDarkMode.value
+                                  ? MyColors.amber
+                                  : MyColors.greenVogue,
                               decoration:
                                   CustomInputDecorations.buildInputDecoration(
-                                      labelText: 'Username'),
+                                      labelText: 'Username',
+                                      themeController: themeController),
                               keyboardType: TextInputType.emailAddress,
                             ),
                             const SizedBox(height: 16),
@@ -64,19 +69,27 @@ class LoginScreen extends StatelessWidget {
                               }),
                               validator: (value) =>
                                   Validators.passwordLoginValidator(value),
-                              style:
-                                  const TextStyle(color: MyColors.greenVogue),
-                              cursorColor: MyColors.greenVogue,
+                              style: TextStyle(
+                                color: themeController.isDarkMode.value
+                                    ? MyColors.amber
+                                    : MyColors.greenVogue,
+                              ),
+                              cursorColor: themeController.isDarkMode.value
+                                  ? MyColors.amber
+                                  : MyColors.greenVogue,
                               obscureText: !controller.isPasswordVisible.value,
                               decoration:
                                   CustomInputDecorations.buildInputDecoration(
                                 labelText: 'Contrasenya',
+                                themeController: themeController,
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     controller.isPasswordVisible.value
                                         ? Icons.visibility
                                         : Icons.visibility_off_outlined,
-                                    color: MyColors.greenVogue,
+                                    color: themeController.isDarkMode.value
+                                        ? MyColors.amber
+                                        : MyColors.greenVogue,
                                   ),
                                   onPressed: () =>
                                       controller.togglePasswordVisibility(),
@@ -113,14 +126,20 @@ class LoginScreen extends StatelessWidget {
                                   0, 12, 0, 12),
                               child: RichText(
                                   text: TextSpan(children: [
-                                const TextSpan(
+                                TextSpan(
                                   text: 'No tens compte? ',
-                                  style: TextStyle(color: MyColors.greenVogue),
+                                  style: TextStyle(
+                                    color: themeController.isDarkMode.value
+                                        ? Colors.white
+                                        : MyColors.greenVogue,
+                                  ),
                                 ),
                                 TextSpan(
                                   text: 'Crea compte aquí',
-                                  style: const TextStyle(
-                                    color: MyColors.blueCharcoal,
+                                  style: TextStyle(
+                                    color: themeController.isDarkMode.value
+                                        ? MyColors.amber
+                                        : MyColors.blueCharcoal,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   recognizer: TapGestureRecognizer()

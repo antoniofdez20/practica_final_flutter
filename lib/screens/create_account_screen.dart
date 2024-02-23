@@ -5,6 +5,7 @@ import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 import 'package:practica_final_flutter/utils/custom_input_decoration.dart';
 import 'package:practica_final_flutter/utils/validators.dart';
+import 'package:practica_final_flutter/widgets/top_app_bar.dart';
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
@@ -12,15 +13,13 @@ class CreateAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FirebaseUsersController>();
+    final themeController = Get.find<ThemeController>();
     final tempUser = controller.tempUser;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Quizz Land'),
-        ),
+        appBar: const TopAppBar(title: 'Quizz Land'),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -43,10 +42,17 @@ class CreateAccountScreen extends StatelessWidget {
                       }),
                       validator: (value) =>
                           Validators.usernameValidator(value, controller.users),
-                      style: const TextStyle(color: MyColors.greenVogue),
-                      cursorColor: MyColors.greenVogue,
+                      style: TextStyle(
+                        color: themeController.isDarkMode.value
+                            ? MyColors.amber
+                            : MyColors.greenVogue,
+                      ),
+                      cursorColor: themeController.isDarkMode.value
+                          ? MyColors.amber
+                          : MyColors.greenVogue,
                       decoration: CustomInputDecorations.buildInputDecoration(
-                          labelText: 'Username'),
+                          labelText: 'Username',
+                          themeController: themeController),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 16),
@@ -56,10 +62,16 @@ class CreateAccountScreen extends StatelessWidget {
                       }),
                       validator: (value) =>
                           Validators.emailValidator(value, controller.users),
-                      style: const TextStyle(color: MyColors.greenVogue),
-                      cursorColor: MyColors.greenVogue,
+                      style: TextStyle(
+                        color: themeController.isDarkMode.value
+                            ? MyColors.amber
+                            : MyColors.greenVogue,
+                      ),
+                      cursorColor: themeController.isDarkMode.value
+                          ? MyColors.amber
+                          : MyColors.greenVogue,
                       decoration: CustomInputDecorations.buildInputDecoration(
-                          labelText: 'Email'),
+                          labelText: 'Email', themeController: themeController),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 16),
@@ -70,17 +82,26 @@ class CreateAccountScreen extends StatelessWidget {
                         }),
                         validator: (value) =>
                             Validators.passwordValidator(value),
-                        style: const TextStyle(color: MyColors.greenVogue),
-                        cursorColor: MyColors.greenVogue,
+                        style: TextStyle(
+                          color: themeController.isDarkMode.value
+                              ? MyColors.amber
+                              : MyColors.greenVogue,
+                        ),
+                        cursorColor: themeController.isDarkMode.value
+                            ? MyColors.amber
+                            : MyColors.greenVogue,
                         obscureText: !controller.isPasswordVisible.value,
                         decoration: CustomInputDecorations.buildInputDecoration(
                           labelText: 'Contrasenya',
+                          themeController: themeController,
                           suffixIcon: IconButton(
                             icon: Icon(
                               controller.isPasswordVisible.value
                                   ? Icons.visibility
                                   : Icons.visibility_off_outlined,
-                              color: MyColors.greenVogue,
+                              color: themeController.isDarkMode.value
+                                  ? MyColors.amber
+                                  : MyColors.greenVogue,
                             ),
                             onPressed: () =>
                                 controller.togglePasswordVisibility(),
@@ -96,17 +117,26 @@ class CreateAccountScreen extends StatelessWidget {
                         validator: (value) =>
                             Validators.confirmPasswordValidator(
                                 value, tempUser.value.contrasenya),
-                        style: const TextStyle(color: MyColors.greenVogue),
-                        cursorColor: MyColors.greenVogue,
+                        style: TextStyle(
+                          color: themeController.isDarkMode.value
+                              ? MyColors.amber
+                              : MyColors.greenVogue,
+                        ),
+                        cursorColor: themeController.isDarkMode.value
+                            ? MyColors.amber
+                            : MyColors.greenVogue,
                         obscureText: !controller.isConfPswVisible.value,
                         decoration: CustomInputDecorations.buildInputDecoration(
                           labelText: 'Confirmar contrasenya',
+                          themeController: themeController,
                           suffixIcon: IconButton(
                             icon: Icon(
                               controller.isConfPswVisible.value
                                   ? Icons.visibility
                                   : Icons.visibility_off_outlined,
-                              color: MyColors.greenVogue,
+                              color: themeController.isDarkMode.value
+                                  ? MyColors.amber
+                                  : MyColors.greenVogue,
                             ),
                             onPressed: () =>
                                 controller.toggleConfPswVisibility(),
@@ -180,14 +210,20 @@ class CreateAccountScreen extends StatelessWidget {
                           const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
                       child: RichText(
                           text: TextSpan(children: [
-                        const TextSpan(
+                        TextSpan(
                           text: 'Ja tens un compte? ',
-                          style: TextStyle(color: MyColors.greenVogue),
+                          style: TextStyle(
+                            color: themeController.isDarkMode.value
+                                ? Colors.white
+                                : MyColors.greenVogue,
+                          ),
                         ),
                         TextSpan(
                           text: 'Iniciar sessió aquí',
-                          style: const TextStyle(
-                            color: MyColors.blueCharcoal,
+                          style: TextStyle(
+                            color: themeController.isDarkMode.value
+                                ? MyColors.amber
+                                : MyColors.blueCharcoal,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
