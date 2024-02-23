@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
-import 'package:practica_final_flutter/controllers/navigationcontroller.dart';
 import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/screens/screens.dart';
-import 'controllers/themecontroller.dart';
 
 void main() async {
   WidgetsFlutterBinding
