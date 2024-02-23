@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class ImageCounter extends StatelessWidget {
@@ -8,8 +6,13 @@ class ImageCounter extends StatelessWidget {
   final int counter;
   final double size;
 
-  ImageCounter({required this.imagePath, required this.name, required this.counter, required this.size});
-  
+  const ImageCounter(
+      {super.key,
+      required this.imagePath,
+      required this.name,
+      required this.counter,
+      required this.size});
+
   get label => null;
 
   @override
@@ -27,25 +30,21 @@ class ImageCounter extends StatelessWidget {
         ), // Muestra la imagen
 
         // nombre
-        const Padding(
-          padding: EdgeInsets.only(left: 10)
-        ),
+        const Padding(padding: EdgeInsets.only(left: 10)),
         Text(
           name,
           style: const TextStyle(fontSize: 20),
         ),
 
         // contador
-        Expanded(child: Align(
+        Expanded(
+            child: Align(
           alignment: Alignment.centerRight,
-          child:           
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "x$counter", // Muestra el contador
-                style: const TextStyle(fontSize: 20)
-              ),
-            ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("x$counter", // Muestra el contador
+                style: const TextStyle(fontSize: 20)),
+          ),
         )),
       ],
     );

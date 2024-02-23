@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
@@ -98,36 +97,31 @@ class StoreScreen extends StatelessWidget {
     Get.defaultDialog(
       title: title,
       content: Image.asset(img),
-
       backgroundColor: MyColors.amber,
       titleStyle: const TextStyle(
-        color: MyColors.midnight,
-        fontWeight: FontWeight.w500
-      ),
-
+          color: MyColors.midnight, fontWeight: FontWeight.w500),
       actions: [
         TextButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: const Text("Recollir!"),
-          style: TextButton.styleFrom(
-            backgroundColor: MyColors.midnight,
-            foregroundColor: MyColors.amber
-          )
-        ),
+            onPressed: () {
+              Get.back();
+            },
+            style: TextButton.styleFrom(
+                backgroundColor: MyColors.midnight,
+                foregroundColor: MyColors.amber),
+            child: const Text("Recollir!")),
       ],
-    );  }
-  
+    );
+  }
+
   _bottomSheet(BuildContext context, ThemeController themeController) {
     Get.bottomSheet(
-      Column(
+      const Column(
         children: [
           // title
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(top: 20),
           ),
-          const Text(
+          Text(
             'Aventatges',
             style: TextStyle(fontSize: 30),
           ),
@@ -140,7 +134,7 @@ class StoreScreen extends StatelessWidget {
             size: 50,
           ),
 
-           // mult20
+          // mult20
           ImageCounter(
             imagePath: 'assets/icons/mult20.png',
             name: 'Multiplicar per 2',
@@ -155,7 +149,7 @@ class StoreScreen extends StatelessWidget {
             counter: 10,
             size: 50,
           ),
-          
+
           // menos50
           ImageCounter(
             imagePath: 'assets/icons/menos50.png',
@@ -163,7 +157,7 @@ class StoreScreen extends StatelessWidget {
             counter: 10,
             size: 50,
           ),
-          
+
           // resoldre
           ImageCounter(
             imagePath: 'assets/icons/resolver.png',
@@ -173,12 +167,9 @@ class StoreScreen extends StatelessWidget {
           ),
         ],
       ),
-      
-
       backgroundColor: themeController.isDarkMode.value
-        ? MyColors.blueCharcoal
-        : MyColors.easternBlue,
-      
+          ? MyColors.blueCharcoal
+          : MyColors.easternBlue,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
