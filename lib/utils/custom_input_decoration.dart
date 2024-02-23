@@ -34,7 +34,7 @@ class CustomInputDecorations {
       ),
       filled: true,
       fillColor: themeController.isDarkMode.value
-          ? MyColors.midnightBlue
+          ? MyColors.midnight
           : MyColors.easternBlue,
       suffixIcon: suffixIcon,
     );
