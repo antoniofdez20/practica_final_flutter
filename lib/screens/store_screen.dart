@@ -1,11 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 import 'package:practica_final_flutter/widgets/image_button.dart';
 import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:practica_final_flutter/widgets/mydrawer.dart';
-import '../controllers/themecontroller.dart';
 import '../widgets/counter_aventatges.dart';
 import '../widgets/top_app_bar.dart';
 
@@ -15,6 +15,7 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
+    final userController = Get.find<FirebaseUsersController>();
 
     return Scaffold(
       appBar: const TopAppBar(title: 'Quizzosco'),
@@ -30,7 +31,7 @@ class StoreScreen extends StatelessWidget {
                 return ImageButton(
                     imagePath: 'assets/img/sobre.png',
                     onPressed: () {
-                      _opening();
+                      _opening(userController);
                     });
               },
             ),
@@ -40,18 +41,18 @@ class StoreScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 25, left: 100, right: 100),
             child: ElevatedButton(
-              onPressed: () => _bottomSheet(context, themeController),
+              onPressed: () =>
+                  _bottomSheet(context, themeController, userController),
               child: const Text('Aventatges'),
             ),
           ),
         ],
       ),
-
       bottomNavigationBar: const CustomNavigationBar(),
     );
   }
 
-  _opening() {
+  _opening(FirebaseUsersController userController) {
     int rnd = _generateRND();
     String title = "Error!";
     String img = "assets/icons/advertencia.png";
@@ -93,70 +94,79 @@ class StoreScreen extends StatelessWidget {
           color: MyColors.midnight, fontWeight: FontWeight.w500),
       actions: [
         TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            style: TextButton.styleFrom(
-                backgroundColor: MyColors.midnight,
-                foregroundColor: MyColors.amber),
-            child: const Text("Recollir!")),
+          onPressed: () async {
+            userController.tempUser.value.avantatges.menys25++;
+            await userController.updateUser();
+            await userController.saveCredencials(
+                userController.tempUser.value.username,
+                userController.tempUser.value.contrasenya);
+            Get.back();
+          },
+          style: TextButton.styleFrom(
+              backgroundColor: MyColors.midnight,
+              foregroundColor: MyColors.amber),
+          child: const Text("Recollir!"),
+        ),
       ],
     );
   }
 
-  _bottomSheet(BuildContext context, ThemeController themeController) {
+  _bottomSheet(BuildContext context, ThemeController themeController,
+      FirebaseUsersController userController) {
     Get.bottomSheet(
-      const Column(
-        children: [
-          // title
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          Text(
-            'Aventatges',
-            style: TextStyle(fontSize: 30),
-          ),
+      Obx(
+        () => Column(
+          children: [
+            // title
+            const Padding(
+              padding: EdgeInsets.only(top: 20),
+            ),
+            const Text(
+              'Aventatges',
+              style: TextStyle(fontSize: 30),
+            ),
 
-          // mult15
-          ImageCounter(
-            imagePath: 'assets/icons/mult15.png',
-            name: 'Multiplicar per 1.5',
-            counter: 10,
-            size: 50,
-          ),
+            // mult15
+            ImageCounter(
+              imagePath: 'assets/icons/mult15.png',
+              name: 'Multiplicar per 1.5',
+              counter: userController.tempUser.value.avantatges.mult15,
+              size: 50,
+            ),
 
-          // mult20
-          ImageCounter(
-            imagePath: 'assets/icons/mult20.png',
-            name: 'Multiplicar per 2',
-            counter: 10,
-            size: 50,
-          ),
+            // mult20
+            ImageCounter(
+              imagePath: 'assets/icons/mult20.png',
+              name: 'Multiplicar per 2',
+              counter: userController.tempUser.value.avantatges.mult20,
+              size: 50,
+            ),
 
-          // menos25
-          ImageCounter(
-            imagePath: 'assets/icons/menos25.png',
-            name: 'Descartar 1',
-            counter: 10,
-            size: 50,
-          ),
+            // menos25
+            ImageCounter(
+              imagePath: 'assets/icons/menos25.png',
+              name: 'Descartar 1',
+              counter: userController.tempUser.value.avantatges.menys25,
+              size: 50,
+            ),
 
-          // menos50
-          ImageCounter(
-            imagePath: 'assets/icons/menos50.png',
-            name: 'Descartar 2',
-            counter: 10,
-            size: 50,
-          ),
+            // menos50
+            ImageCounter(
+              imagePath: 'assets/icons/menos50.png',
+              name: 'Descartar 2',
+              counter: userController.tempUser.value.avantatges.menys50,
+              size: 50,
+            ),
 
-          // resoldre
-          ImageCounter(
-            imagePath: 'assets/icons/resolver.png',
-            name: 'Resoldre',
-            counter: 10,
-            size: 50,
-          ),
-        ],
+            // resoldre
+            ImageCounter(
+              imagePath: 'assets/icons/resolver.png',
+              name: 'Resoldre',
+              counter: userController.tempUser.value.avantatges.resoldre,
+              size: 50,
+            ),
+          ],
+        ),
       ),
       backgroundColor: themeController.isDarkMode.value
           ? MyColors.blueCharcoal

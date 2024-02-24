@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:practica_final_flutter/models/models.dart';
 
 class User {
   String? id;
+  Avantatges avantatges;
   String email;
   String contrasenya;
   int credits;
@@ -10,6 +12,7 @@ class User {
 
   User({
     this.id,
+    required this.avantatges,
     required this.email,
     required this.contrasenya,
     required this.credits,
@@ -22,6 +25,7 @@ class User {
   String toJson() => json.encode(toMap());
 
   factory User.fromMap(Map<String, dynamic> json) => User(
+        avantatges: Avantatges.fromMap(json["avantatges"]),
         email: json["email"],
         contrasenya: json["contrasenya"],
         credits: json["credits"],
@@ -30,6 +34,7 @@ class User {
       );
 
   Map<String, dynamic> toMap() => {
+        "avantatges": avantatges.toMap(),
         "email": email,
         "contrasenya": contrasenya,
         "credits": credits,
@@ -38,6 +43,7 @@ class User {
       };
 
   User copy() => User(
+      avantatges: avantatges,
       email: email,
       contrasenya: contrasenya,
       credits: credits,
