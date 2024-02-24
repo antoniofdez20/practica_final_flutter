@@ -44,6 +44,10 @@ class MyDrawer extends StatelessWidget {
                 textColor: themeController.isDarkMode.value
                     ? MyTheme.darkTheme.textTheme.bodyMedium?.color
                     : MyTheme.lightTheme.textTheme.bodyMedium?.color,
+                titleTextStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                ),
                 title: const Text('Nombre de usuario'),
                 subtitle: Text(tempUser.value.username),
               ),
@@ -52,19 +56,49 @@ class MyDrawer extends StatelessWidget {
                     ? MyTheme.darkTheme.textTheme.bodyMedium?.color
                     : MyTheme.lightTheme.textTheme.bodyMedium?.color,
                 title: const Text('XP'),
-                subtitle: Text('${tempUser.value.xp} puntos'),
+                titleTextStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                ),
+                subtitle: Row(
+                  children: [
+                    Text('${tempUser.value.xp}'),
+                    const SizedBox(width: 5),
+                    const Icon(
+                      Icons.star_rounded,
+                      color: MyColors.amber
+                    )
+                  ],
+                ),
               ),
               ListTile(
                 textColor: themeController.isDarkMode.value
                     ? MyTheme.darkTheme.textTheme.bodyMedium?.color
                     : MyTheme.lightTheme.textTheme.bodyMedium?.color,
                 title: const Text('Créditos'),
-                subtitle: Text('${tempUser.value.credits} créditos'),
+                titleTextStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                ),
+                subtitle: Row(
+                  children: [
+                    Text('${tempUser.value.credits}'),
+                    const SizedBox(width: 5),
+                    const Icon(
+                      Icons.attach_money_rounded,
+                      color: MyColors.amber
+                    )
+                  ],
+                ),
               ),
               ListTile(
                 textColor: themeController.isDarkMode.value
                     ? MyTheme.darkTheme.textTheme.bodyMedium?.color
                     : MyTheme.lightTheme.textTheme.bodyMedium?.color,
+                titleTextStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                ),
                 title: Row(
                   children: [
                     const Text('Tema Claro/Oscuro'),
