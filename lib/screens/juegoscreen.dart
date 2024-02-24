@@ -10,6 +10,17 @@ class JuegoScreen extends StatelessWidget {
 
   JuegoScreen({Key? key, required this.preguntas}) : super(key: key);
 
+  Future<String> _translateText(String text, String toLanguage) async {
+    final translator = GoogleTranslator();
+    try {
+      Translation translation = await translator.translate(text, to: toLanguage);
+      return translation.text!;
+    } catch (e) {
+      print('Error de traducción: $e');
+      return text; // Devuelve el texto original en caso de error
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +31,8 @@ class JuegoScreen extends StatelessWidget {
         final pregunta = preguntas.results[controller.preguntaActual.value];
         List<String> todasLasRespuestas = [...pregunta.incorrectAnswers, pregunta.correctAnswer];
         todasLasRespuestas.shuffle();
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        
+        return ListView(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -29,69 +40,45 @@ class JuegoScreen extends StatelessWidget {
                 future: _translateText(pregunta.question, 'es'),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text(
-                      pregunta.question,
-                      style: TextStyle(fontSize: 24),
-                    );
-                  } else {
-                    return Text(
-                      snapshot.data!,
-                      style: TextStyle(fontSize: 24),
-                    );
+                    return Center(child: CircularProgressIndicator());
                   }
+                  return Text(
+                    snapshot.data ?? pregunta.question,
+                    style: TextStyle(fontSize: 24),
+                    textAlign: TextAlign.center,
+                  );
                 },
               ),
             ),
-            ...todasLasRespuestas
-                .map((respuesta) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                        ),
-                        onPressed: () => controller.verificarRespuesta(respuesta, preguntas.results),
-                        child: FutureBuilder<String>(
-                          future: _translateText(respuesta, 'es'),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return CircularProgressIndicator();
-                            } else if (snapshot.hasError) {
-                              return Text(
-                                respuesta,
-                                style: TextStyle(fontSize: 18),
-                              );
-                            } else {
-                              return Text(
-                                snapshot.data!,
-                                style: TextStyle(fontSize: 18),
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    ))
-                .toList(),
+            ...todasLasRespuestas.map((respuesta) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                ),
+                onPressed: () => controller.verificarRespuesta(respuesta, preguntas.results),
+                child: FutureBuilder<String>(
+                  future: _translateText(respuesta, 'es'),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+                    return Text(
+                      snapshot.data ?? respuesta,
+                      style: TextStyle(fontSize: 18),
+                    );
+                  },
+                ),
+              ),
+            )),
           ],
         );
       }),
     );
-  }
-
-  Future<String> _translateText(String text, String toLanguage) async {
-    final translator = GoogleTranslator();
-    try {
-      Translation translation = await translator.translate(text, to: toLanguage);
-      return translation.text!;
-    } catch (e) {
-      print('Error de traducción: $e');
-      return text; // Devuelve el texto original en caso de error
-    }
   }
 }
