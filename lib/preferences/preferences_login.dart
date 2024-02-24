@@ -1,4 +1,3 @@
-import 'package:practica_final_flutter/models/avantatges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesUserLogin {
@@ -10,20 +9,60 @@ class PreferencesUserLogin {
   static String _tempPassword = '';
   static int _tempCredits = 0;
   static int _tempXP = 0;
+  //he tenido que persistir los datos asi porque al intentar persistir el objeto avantatges directamente me daba error
+  static int _tempMenys50 = 0;
+  static int _tempMenys25 = 0;
+  static int _tempMult15 = 0;
+  static int _tempMult20 = 0;
+  static int _tempResoldre = 0;
 
   static Future init() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static Avantatges get tempAvantatges {
-    String avantatgesStr = _prefs.getString('tempAvantatges') ??
-        '{"menys25":0,"menys50":0,"mult15":0,"mult20":0,"resoldre":0}';
-    return Avantatges.fromJson(avantatgesStr);
+  static int get tempMenys50 {
+    return _prefs.getInt('tempMenys50') ?? _tempMenys50;
   }
 
-  static set tempAvantatges(Avantatges value) {
-    String avantatgesStr = value.toJson();
-    _prefs.setString('tempAvantatges', avantatgesStr);
+  static set tempMenys50(int value) {
+    _tempMenys50 = value;
+    _prefs.setInt('tempMenys50', value);
+  }
+
+  static int get tempMenys25 {
+    return _prefs.getInt('tempMenys25') ?? _tempMenys25;
+  }
+
+  static set tempMenys25(int value) {
+    _tempMenys25 = value;
+    _prefs.setInt('tempMenys25', value);
+  }
+
+  static int get tempMult15 {
+    return _prefs.getInt('tempMult15') ?? _tempMult15;
+  }
+
+  static set tempMult15(int value) {
+    _tempMult15 = value;
+    _prefs.setInt('tempMult15', value);
+  }
+
+  static int get tempMult20 {
+    return _prefs.getInt('tempMult20') ?? _tempMult20;
+  }
+
+  static set tempMult20(int value) {
+    _tempMult20 = value;
+    _prefs.setInt('tempMult20', value);
+  }
+
+  static int get tempResoldre {
+    return _prefs.getInt('tempResoldre') ?? _tempResoldre;
+  }
+
+  static set tempResoldre(int value) {
+    _tempResoldre = value;
+    _prefs.setInt('tempResoldre', value);
   }
 
   static String get tempUserID {

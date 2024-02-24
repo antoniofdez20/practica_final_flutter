@@ -21,7 +21,12 @@ class FirebaseUsersController extends GetxController {
           credits: PreferencesUserLogin.tempCredits,
           xp: PreferencesUserLogin.tempXP,
           username: PreferencesUserLogin.tempUsername,
-          avantatges: PreferencesUserLogin.tempAvantatges)
+          avantatges: Avantatges(
+              menys25: PreferencesUserLogin.tempMenys25,
+              menys50: PreferencesUserLogin.tempMenys50,
+              mult15: PreferencesUserLogin.tempMult15,
+              mult20: PreferencesUserLogin.tempMult20,
+              resoldre: PreferencesUserLogin.tempResoldre))
       .obs;
   RxString confirmPassword = ''.obs;
 
@@ -52,11 +57,6 @@ class FirebaseUsersController extends GetxController {
               userData['avantatges'] as Map<String, dynamic>);
           users.add(auxUser);
         });
-
-        users.forEach((user) {
-          print(
-              user.avantatges.toJson()); // Verifica la estructura de Avantatges
-        });
       }
     } catch (e) {
       print('Error al cargar usuarios: $e');
@@ -81,11 +81,22 @@ class FirebaseUsersController extends GetxController {
     try {
       final userData = await _firebaseRealtimeService.readUserById(userID);
       if (userData.isNotEmpty) {
-        final user = User.fromMap(userData)..id = userID;
+        Map<String, dynamic> userMap = Map<String, dynamic>.from(userData);
+        final user = User.fromMap(userMap);
+        user.id = userID;
+
+        // Asegurarte de que el avantatges se carga correctamente
+        if (userMap.containsKey('avantatges') && userMap['avantatges'] is Map) {
+          user.avantatges = Avantatges.fromMap(userMap['avantatges']);
+        } else {
+          // Asignar valores predeterminados o manejar la ausencia de avantatges de alguna manera
+          user.avantatges = Avantatges(
+              menys25: 0, menys50: 0, mult15: 0, mult20: 0, resoldre: 0);
+        }
+
         tempUser.value = user;
       }
     } catch (e) {
-      // Manejar adecuadamente el error
       print('Error al cargar usuario por ID: $e');
     }
   }
@@ -102,6 +113,17 @@ class FirebaseUsersController extends GetxController {
     }
   }
 
+  Future<void> updateUser() async {
+    final userID = tempUser.value.id!;
+    try {
+      await _firebaseRealtimeService.updateUser(tempUser.value.toMap(), userID);
+      await loadUsers();
+    } catch (e) {
+      // Manejar adecuadamente el error
+      print('Error al actualizar usuario: $e');
+    }
+  }
+
   Future<void> saveCredencials(String username, String password) async {
     final user = users.firstWhereOrNull((u) => u.username == username);
     if (user != null) {
@@ -111,7 +133,11 @@ class FirebaseUsersController extends GetxController {
       PreferencesUserLogin.tempEmail = user.email;
       PreferencesUserLogin.tempCredits = user.credits;
       PreferencesUserLogin.tempXP = user.xp;
-      PreferencesUserLogin.tempAvantatges = user.avantatges;
+      PreferencesUserLogin.tempMenys25 = user.avantatges.menys25;
+      PreferencesUserLogin.tempMenys50 = user.avantatges.menys50;
+      PreferencesUserLogin.tempMult15 = user.avantatges.mult15;
+      PreferencesUserLogin.tempMult20 = user.avantatges.mult20;
+      PreferencesUserLogin.tempResoldre = user.avantatges.resoldre;
     }
   }
 
@@ -122,8 +148,11 @@ class FirebaseUsersController extends GetxController {
     PreferencesUserLogin.tempEmail = '';
     PreferencesUserLogin.tempCredits = 0;
     PreferencesUserLogin.tempXP = 0;
-    PreferencesUserLogin.tempAvantatges =
-        Avantatges(menys25: 0, menys50: 0, mult15: 0, mult20: 0, resoldre: 0);
+    PreferencesUserLogin.tempMenys25 = 0;
+    PreferencesUserLogin.tempMenys50 = 0;
+    PreferencesUserLogin.tempMult15 = 0;
+    PreferencesUserLogin.tempMult20 = 0;
+    PreferencesUserLogin.tempResoldre = 0;
 
     // Actualizar el tempUser de acuerdo a las nuevas preferencias reseteadas
     //esto lo hago porque en el caso de que el usuario cierre sesion pero no reinicie la app
@@ -135,7 +164,12 @@ class FirebaseUsersController extends GetxController {
       email: PreferencesUserLogin.tempEmail,
       credits: PreferencesUserLogin.tempCredits,
       xp: PreferencesUserLogin.tempXP,
-      avantatges: PreferencesUserLogin.tempAvantatges,
+      avantatges: Avantatges(
+          menys25: PreferencesUserLogin.tempMenys25,
+          menys50: PreferencesUserLogin.tempMenys50,
+          mult15: PreferencesUserLogin.tempMult15,
+          mult20: PreferencesUserLogin.tempMult20,
+          resoldre: PreferencesUserLogin.tempResoldre),
     );
   }
 }

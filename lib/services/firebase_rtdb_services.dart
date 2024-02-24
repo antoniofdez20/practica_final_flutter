@@ -47,6 +47,16 @@ class FirebaseRealtimeService extends GetConnect {
     }
   }
 
+  Future<void> updateUser(Map<String, dynamic> tempUser, String userId) async {
+    final response = await patch('$_baseUrl/users/$userId.json', tempUser);
+    if (response.status.hasError) {
+      return Future.error(
+          'Error al actualizar usuario: ${response.statusText}');
+    } else {
+      print('Usuario actualizado');
+    }
+  }
+
   Future<void> deleteUser(String userId) async {
     final response = await delete('$_baseUrl/users/$userId.json');
     if (response.status.hasError) {
