@@ -59,7 +59,7 @@ class FirebaseUsersController extends GetxController {
       final userID =
           await _firebaseRealtimeService.addUser(tempUser.value.toMap());
       PreferencesUserLogin.tempUserID = userID;
-      loadUsers();
+      await loadUsers();
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al crear usuario: $e');
@@ -86,7 +86,7 @@ class FirebaseUsersController extends GetxController {
     try {
       await _firebaseRealtimeService.deleteUser(userID);
       resetCredencials();
-      loadUsers();
+      await loadUsers();
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al eliminar usuario: $e');
@@ -112,5 +112,17 @@ class FirebaseUsersController extends GetxController {
     PreferencesUserLogin.tempEmail = '';
     PreferencesUserLogin.tempCredits = 0;
     PreferencesUserLogin.tempXP = 0;
+
+    // Actualizar el tempUser de acuerdo a las nuevas preferencias reseteadas
+    //esto lo hago porque en el caso de que el usuario cierre sesion pero no reinicie la app
+    //las credenciales de tempUser no se actualizan y da pie a errores en campos como la puntuacion
+    tempUser.value = User(
+      id: PreferencesUserLogin.tempUserID,
+      username: PreferencesUserLogin.tempUsername,
+      contrasenya: PreferencesUserLogin.tempPassword,
+      email: PreferencesUserLogin.tempEmail,
+      credits: PreferencesUserLogin.tempCredits,
+      xp: PreferencesUserLogin.tempXP,
+    );
   }
 }
