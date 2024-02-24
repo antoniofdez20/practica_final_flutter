@@ -58,8 +58,14 @@ class Validators {
   static bool validateLoginCredentials(
       String username, String password, List<User> users) {
     final User userFinal = users.firstWhere((user) => user.username == username,
-        orElse: () =>
-            User(email: '', contrasenya: '', credits: 0, xp: 0, username: ''));
+        orElse: () => User(
+            email: '',
+            contrasenya: '',
+            credits: 0,
+            xp: 0,
+            username: '',
+            avantatges: Avantatges(
+                menys25: 0, menys50: 0, mult15: 0, mult20: 0, resoldre: 0)));
     if (userFinal.contrasenya == password) {
       return true; // Las credenciales son correctas
     }

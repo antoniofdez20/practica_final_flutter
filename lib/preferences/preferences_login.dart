@@ -1,3 +1,4 @@
+import 'package:practica_final_flutter/models/avantatges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesUserLogin {
@@ -12,6 +13,17 @@ class PreferencesUserLogin {
 
   static Future init() async {
     _prefs = await SharedPreferences.getInstance();
+  }
+
+  static Avantatges get tempAvantatges {
+    String avantatgesStr = _prefs.getString('tempAvantatges') ??
+        '{"menys25":0,"menys50":0,"mult15":0,"mult20":0,"resoldre":0}';
+    return Avantatges.fromJson(avantatgesStr);
+  }
+
+  static set tempAvantatges(Avantatges value) {
+    String avantatgesStr = value.toJson();
+    _prefs.setString('tempAvantatges', avantatgesStr);
   }
 
   static String get tempUserID {

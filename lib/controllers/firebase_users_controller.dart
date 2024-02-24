@@ -20,7 +20,8 @@ class FirebaseUsersController extends GetxController {
           email: PreferencesUserLogin.tempEmail,
           credits: PreferencesUserLogin.tempCredits,
           xp: PreferencesUserLogin.tempXP,
-          username: PreferencesUserLogin.tempUsername)
+          username: PreferencesUserLogin.tempUsername,
+          avantatges: PreferencesUserLogin.tempAvantatges)
       .obs;
   RxString confirmPassword = ''.obs;
 
@@ -43,13 +44,21 @@ class FirebaseUsersController extends GetxController {
 
       if (response.isNotEmpty) {
         response.forEach((key, value) {
-          final auxUser = User.fromMap(value);
+          Map<String, dynamic> userData = value as Map<String, dynamic>;
+          final auxUser = User.fromMap(userData);
           auxUser.id = key;
+          // Asegurarse de que la clave usada aquí coincida con la de tus datos
+          auxUser.avantatges = Avantatges.fromMap(
+              userData['avantatges'] as Map<String, dynamic>);
           users.add(auxUser);
+        });
+
+        users.forEach((user) {
+          print(
+              user.avantatges.toJson()); // Verifica la estructura de Avantatges
         });
       }
     } catch (e) {
-      // Manejar adecuadamente el error
       print('Error al cargar usuarios: $e');
     }
   }
@@ -102,6 +111,7 @@ class FirebaseUsersController extends GetxController {
       PreferencesUserLogin.tempEmail = user.email;
       PreferencesUserLogin.tempCredits = user.credits;
       PreferencesUserLogin.tempXP = user.xp;
+      PreferencesUserLogin.tempAvantatges = user.avantatges;
     }
   }
 
@@ -112,6 +122,8 @@ class FirebaseUsersController extends GetxController {
     PreferencesUserLogin.tempEmail = '';
     PreferencesUserLogin.tempCredits = 0;
     PreferencesUserLogin.tempXP = 0;
+    PreferencesUserLogin.tempAvantatges =
+        Avantatges(menys25: 0, menys50: 0, mult15: 0, mult20: 0, resoldre: 0);
 
     // Actualizar el tempUser de acuerdo a las nuevas preferencias reseteadas
     //esto lo hago porque en el caso de que el usuario cierre sesion pero no reinicie la app
@@ -123,6 +135,7 @@ class FirebaseUsersController extends GetxController {
       email: PreferencesUserLogin.tempEmail,
       credits: PreferencesUserLogin.tempCredits,
       xp: PreferencesUserLogin.tempXP,
+      avantatges: PreferencesUserLogin.tempAvantatges,
     );
   }
 }
