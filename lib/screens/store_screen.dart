@@ -31,7 +31,8 @@ class StoreScreen extends StatelessWidget {
                 return ImageButton(
                     imagePath: 'assets/img/sobre.png',
                     onPressed: () {
-                      _opening(userController);
+                      _buyPack(userController);
+                      // _opening(userController);
                     });
               },
             ),
@@ -52,6 +53,34 @@ class StoreScreen extends StatelessWidget {
     );
   }
 
+  _buyPack(FirebaseUsersController userController) {
+    const int packagePrice = 250;
+
+    if (userController.tempUser.value.credits < packagePrice) {
+      Get.defaultDialog(
+        title: "No tens credits suficients",
+        content: Image.asset("assets/icons/sin_dinero.png"),
+        backgroundColor: Colors.red,
+        titleStyle: const TextStyle(
+            color: MyColors.midnight, fontWeight: FontWeight.w500),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              Get.back();
+            },
+            style: TextButton.styleFrom(
+                backgroundColor: MyColors.midnight,
+                foregroundColor: Colors.white),
+            child: const Text("OK!"),
+          ),
+        ],
+      ); 
+    } else {
+      userController.tempUser.value.credits -= packagePrice;
+      _opening(userController);
+    }
+  }
+
   _opening(FirebaseUsersController userController) {
     int rnd = _generateRND();
     String title = "Error!";
@@ -61,26 +90,31 @@ class StoreScreen extends StatelessWidget {
     if (rnd <= 3500) {
       title = "Multiplicar els punst per 1.5";
       img = "assets/icons/mult15.png";
+      userController.tempUser.value.avantatges.mult15++;
     }
     // menos25 - 25%
     else if (rnd > 3500 && rnd <= 6000) {
       title = "Descartar una de les respostes incorrectes";
       img = "assets/icons/menos25.png";
+      userController.tempUser.value.avantatges.menys25++;
     }
     // mult20 - 20%
     else if (rnd > 6000 && rnd <= 8000) {
       title = "Multiplicar els punst per 2";
       img = "assets/icons/mult20.png";
+      userController.tempUser.value.avantatges.mult20++;
     }
     // menos50 - 15%
     else if (rnd > 8000 && rnd <= 9500) {
       title = "Descartar dues de les respostes incorrectes";
       img = "assets/icons/menos50.png";
+      userController.tempUser.value.avantatges.menys50++;
     }
     // resoldre - 5%
     else if (rnd > 9500) {
       title = "Resoldre la pregunta directament";
       img = "assets/icons/resolver.png";
+      userController.tempUser.value.avantatges.resoldre++;
     } else {
       title;
       img;
@@ -95,11 +129,11 @@ class StoreScreen extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () async {
-            userController.tempUser.value.avantatges.menys25++;
             await userController.updateUser();
             await userController.saveCredencials(
-                userController.tempUser.value.username,
-                userController.tempUser.value.contrasenya);
+              userController.tempUser.value.username,
+              userController.tempUser.value.contrasenya
+            );
             Get.back();
           },
           style: TextButton.styleFrom(
