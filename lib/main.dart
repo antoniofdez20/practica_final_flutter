@@ -3,6 +3,10 @@ import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/screens/screens.dart';
+import 'package:practica_final_flutter/screens/tutorial/end_tutorial_screen.dart';
+import 'package:practica_final_flutter/screens/tutorial/game_screen.dart';
+
+import 'screens/tutorial/tutorial_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding
@@ -14,7 +18,7 @@ void main() async {
   Get.put(ThemeController());
   final isLoggedIn = PreferencesUserLogin.tempUsername.isNotEmpty &&
       PreferencesUserLogin.tempPassword.isNotEmpty;
-  runApp(MyApp(initialRoute: isLoggedIn ? '/home' : '/login'));
+  runApp(MyApp(initialRoute: isLoggedIn ? '/tutorial/game/end' : '/login'));
 }
 
 class MyApp extends StatelessWidget {
@@ -57,6 +61,9 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(name: '/store', page: () => const StoreScreen()),
         GetPage(name: '/ranking', page: () => const RankingScreen()),
+        GetPage(name: '/tutorial', page: () => const TutorialScreen()),
+        GetPage(name: '/tutorial/game', page: () => GameScreen()),
+        GetPage(name: '/tutorial/game/end', page: () => EndTutorialScreen()),
       ],
       theme: themeController.currentTheme,
     );

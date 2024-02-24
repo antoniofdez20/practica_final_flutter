@@ -170,7 +170,7 @@ class CreateAccountScreen extends StatelessWidget {
                               shouldIconPulse: true,
                             );
                             // Redirige al usuario al home
-                            Get.offNamed('/home');
+                            Get.offNamed('/tutorial');
                           } catch (e) {
                             // Si la creación del usuario falla, muestra el Snackbar de error
                             Get.snackbar(
