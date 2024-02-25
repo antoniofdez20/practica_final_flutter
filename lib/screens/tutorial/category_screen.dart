@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/firebase_users_controller.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
-import 'package:practica_final_flutter/screens/juegoscreen.dart';
+import 'package:practica_final_flutter/screens/tutorial/tutorial_game_screen.dart';
 import 'package:practica_final_flutter/services/triviaservice.dart';
 
-class GameScreen extends StatelessWidget {
-  int questionCount = 0;
-
+class TutorialCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FirebaseUsersController>();
@@ -49,7 +47,7 @@ class GameScreen extends StatelessWidget {
                         TriviaService service = TriviaService();
                         try {
                           Preguntas preguntas = await service.getTriviaQuestions('History');
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Get.offAll(() => TutorialJuegoScreen(preguntas: preguntas));
                         } catch (e) {
                           print(e);
                         }
@@ -69,17 +67,15 @@ class GameScreen extends StatelessWidget {
                       onPressed: () async {
                         TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas =
-                              await service.getTriviaQuestions('Geography');
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Preguntas preguntas = await service.getTriviaQuestions('Geography');
+                          Get.offAll(() => TutorialJuegoScreen(preguntas: preguntas));
                         } catch (e) {
                           print(e);
                         }
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 16.0),
-                        child:
-                            Text('Geografia', style: TextStyle(fontSize: 20)),
+                        child: Text('Geografia', style: TextStyle(fontSize: 20)),
                       ),
                     ),
                     const SizedBox(height: 16), // Espacio entre botones
@@ -92,9 +88,8 @@ class GameScreen extends StatelessWidget {
                       onPressed: () async {
                         TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas =
-                              await service.getTriviaQuestions('Art'); // Cambia 'Geography' por 'Art'
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Preguntas preguntas = await service.getTriviaQuestions('Art'); // Cambia 'Geography' por 'Art'
+                          Get.offAll(() => TutorialJuegoScreen(preguntas: preguntas));
                         } catch (e) {
                           print(e);
                         }

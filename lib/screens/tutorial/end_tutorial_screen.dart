@@ -47,7 +47,7 @@ class EndTutorialScreen extends StatelessWidget {
                 userController.update(); // Notifica a los widgets que escuchan este estado
                 Get.toNamed('/home');
               },
-              child: const Text('Botón'),
+              child: const Text('Acabar Tutorial', style: TextStyle(fontSize: 20)),
             ),
           ],
         ),
