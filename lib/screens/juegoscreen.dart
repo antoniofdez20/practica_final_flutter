@@ -8,15 +8,15 @@ class JuegoScreen extends StatelessWidget {
   final Preguntas preguntas;
   final JuegoController controller = Get.put(JuegoController());
 
-  JuegoScreen({Key? key, required this.preguntas}) : super(key: key);
+  JuegoScreen({super.key, required this.preguntas});
 
   Future<String> _translateText(String text, String toLanguage) async {
     final translator = GoogleTranslator();
     try {
-      Translation translation = await translator.translate(text, to: toLanguage);
-      return translation.text!;
+      Translation translation =
+          await translator.translate(text, to: toLanguage);
+      return translation.text;
     } catch (e) {
-      print('Error de traducción: $e');
       return text; // Devuelve el texto original en caso de error
     }
   }
@@ -25,13 +25,17 @@ class JuegoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(preguntas.results[controller.preguntaActual.value].category),
+        title:
+            Text(preguntas.results[controller.preguntaActual.value].category),
       ),
       body: Obx(() {
         final pregunta = preguntas.results[controller.preguntaActual.value];
-        List<String> todasLasRespuestas = [...pregunta.incorrectAnswers, pregunta.correctAnswer];
+        List<String> todasLasRespuestas = [
+          ...pregunta.incorrectAnswers,
+          pregunta.correctAnswer
+        ];
         todasLasRespuestas.shuffle();
-        
+
         return ListView(
           children: [
             Padding(
@@ -40,42 +44,46 @@ class JuegoScreen extends StatelessWidget {
                 future: _translateText(pregunta.question, 'es'),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   return Text(
                     snapshot.data ?? pregunta.question,
-                    style: TextStyle(fontSize: 24),
+                    style: const TextStyle(fontSize: 24),
                     textAlign: TextAlign.center,
                   );
                 },
               ),
             ),
             ...todasLasRespuestas.map((respuesta) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 40),
+                    ),
+                    onPressed: () => controller.verificarRespuesta(
+                        respuesta, preguntas.results),
+                    child: FutureBuilder<String>(
+                      future: _translateText(respuesta, 'es'),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        }
+                        return Text(
+                          snapshot.data ?? respuesta,
+                          style: const TextStyle(fontSize: 18),
+                        );
+                      },
+                    ),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                ),
-                onPressed: () => controller.verificarRespuesta(respuesta, preguntas.results),
-                child: FutureBuilder<String>(
-                  future: _translateText(respuesta, 'es'),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
-                    }
-                    return Text(
-                      snapshot.data ?? respuesta,
-                      style: TextStyle(fontSize: 18),
-                    );
-                  },
-                ),
-              ),
-            )),
+                )),
           ],
         );
       }),

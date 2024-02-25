@@ -6,7 +6,9 @@ import 'package:practica_final_flutter/screens/juegoscreen.dart';
 import 'package:practica_final_flutter/services/triviaservice.dart';
 
 class GameScreen extends StatelessWidget {
-  int questionCount = 0;
+  final int questionCount = 0;
+
+  const GameScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +23,20 @@ class GameScreen extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.skip_next),
               onPressed: () {
-                Get.toNamed('/home');
+                Get.offNamed('/home');
               },
             ),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 40), // Espacio entre el texto y la imagen
-          const Text("Tria una de les següents categories:", style: TextStyle(fontSize: 24),),
+      body: Column(children: [
+        const SizedBox(height: 40), // Espacio entre el texto y la imagen
+        const Text(
+          "Tria una de les següents categories:",
+          style: TextStyle(fontSize: 24),
+        ),
 
-          controller.users.isEmpty
+        controller.users.isEmpty
             ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.all(80.0),
@@ -48,7 +52,8 @@ class GameScreen extends StatelessWidget {
                       onPressed: () async {
                         TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas = await service.getTriviaQuestions('History');
+                          Preguntas preguntas =
+                              await service.getTriviaQuestions('History');
                           Get.offAll(() => JuegoScreen(preguntas: preguntas));
                         } catch (e) {
                           print(e);
@@ -93,7 +98,8 @@ class GameScreen extends StatelessWidget {
                         TriviaService service = TriviaService();
                         try {
                           Preguntas preguntas =
-                              await service.getTriviaQuestions('Art'); // Cambia 'Geography' por 'Art'
+                              await service.getTriviaQuestions(
+                                  'Art'); // Cambia 'Geography' por 'Art'
                           Get.offAll(() => JuegoScreen(preguntas: preguntas));
                         } catch (e) {
                           print(e);
@@ -107,8 +113,7 @@ class GameScreen extends StatelessWidget {
                   ],
                 ),
               ),
-        ]
-      ),
+      ]),
       // No hay BottomNavigationBar aquí
     );
   }

@@ -15,7 +15,7 @@ class TutorialScreen extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.skip_next),
               onPressed: () {
-                Get.toNamed('/home');
+                Get.offNamed('/home');
               },
             ),
           ],
@@ -31,16 +31,20 @@ class TutorialScreen extends StatelessWidget {
                   'Benvingut a Quizz Land!',
                   style: TextStyle(fontSize: 24),
                 ),
-                const SizedBox(height: 20), // Espacio entre el texto y la imagen
+                const SizedBox(
+                    height: 20), // Espacio entre el texto y la imagen
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 30.0), // Añade márgenes a los lados
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 30.0), // Añade márgenes a los lados
                   child: const Text(
-                    'Aquesta aplicació consisteix amb un joc de 10 preguntes d\'una categoria que tendas que respondre.\n\nOn podas competir amb altres jugadors i demostrar que ets el millor!\n\nEt podras ajudar d\'unes aventatges que aconseguiras obrin els paquets que compris a la tenda.',
+                    'Aquesta aplicació consisteix amb un joc de 10 preguntes d\'una categoria que tendràs que respondre.\n\nOn podràs competir amb altres jugadors i demostrar que ets el millor!\n\nEt podras ajudar d\'unes aventatges que aconseguiras obrint els paquets que compris a la tenda.',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
-                Image.asset('assets/icons/ic_launcher_round.png', height: 300, width: 300),
-                const SizedBox(height: 40), // Espacio entre la imagen y el botón
+                Image.asset('assets/icons/ic_launcher_round.png',
+                    height: 300, width: 300),
+                const SizedBox(
+                    height: 40), // Espacio entre la imagen y el botón
               ],
             ),
           ),
@@ -50,7 +54,7 @@ class TutorialScreen extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 20, right: 100, left: 100),
               child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed('/tutorial/game');
+                  Get.offNamed('/tutorial/game');
                 },
                 child: const Text(
                   'Continuar',

@@ -6,7 +6,7 @@ import 'package:practica_final_flutter/services/triviaservice.dart';
 
 class CargaScreen extends StatefulWidget {
   final String categoria; // Agregar un campo para la categoría
-  const CargaScreen({Key? key, required this.categoria}) : super(key: key);
+  const CargaScreen({super.key, required this.categoria});
 
   @override
   State<CargaScreen> createState() => _CargaScreenState();
@@ -27,20 +27,21 @@ class _CargaScreenState extends State<CargaScreen> {
       Get.offAll(() => JuegoScreen(preguntas: preguntas));
     } catch (e) {
       print("Error al cargar las preguntas de ${widget.categoria}: $e");
-      cargarPreguntas(); 
+      cargarPreguntas();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             CircularProgressIndicator(),
             SizedBox(height: 20),
-            Text('Cargando...', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text('Cargando...',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

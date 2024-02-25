@@ -12,8 +12,10 @@ class FirebaseUsersController extends GetxController {
 
   RxBool isPasswordVisible = false.obs;
   RxBool isConfPswVisible = false.obs;
-
+  RxList<User> usersNoAdmin = <User>[].obs;
   RxList<User> users = <User>[].obs;
+  RxList<User> filteredUsers = <User>[].obs;
+  RxString filter = ''.obs;
   Rx<User> tempUser = User(
           id: PreferencesUserLogin.tempUserID,
           contrasenya: PreferencesUserLogin.tempPassword,
@@ -30,8 +32,40 @@ class FirebaseUsersController extends GetxController {
       .obs;
   RxString confirmPassword = ''.obs;
 
-  FirebaseUsersController() {
-    loadUsers();
+  @override
+  void onInit() {
+    super.onInit();
+    loadUsers().then((_) {
+      sortUsers();
+    });
+  }
+
+  void updateFilter(String value) {
+    filter.value = value;
+    filterUsers(value);
+  }
+
+  void sortUsers() {
+    users.sort((a, b) => b.xp.compareTo(a.xp));
+    usersNoAdmin.value =
+        users.where((user) => user.username.toLowerCase() != "admin").toList();
+    filterTopFive();
+  }
+
+  void filterTopFive() {
+    filteredUsers.value = usersNoAdmin.take(5).toList();
+  }
+
+  void filterUsers(String query) {
+    if (query.isNotEmpty) {
+      var tmpList = usersNoAdmin
+          .where((user) =>
+              user.username.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      filteredUsers.value = tmpList.toList();
+    } else {
+      filterTopFive();
+    }
   }
 
   void togglePasswordVisibility() {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../controllers/firebase_users_controller.dart';
 
-
 class EndTutorialScreen extends StatelessWidget {
+  const EndTutorialScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final userController = Get.find<FirebaseUsersController>();
@@ -30,7 +30,6 @@ class EndTutorialScreen extends StatelessWidget {
               'Experiencia guanyada:\n1000',
               style: TextStyle(fontSize: 20),
             ),
-            
 
             const SizedBox(height: 20), // Espacio entre el texto y la imagen
             const Text(
@@ -38,14 +37,17 @@ class EndTutorialScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
 
-
-            Image.asset('assets/icons/ic_launcher_round.png', height: 300, width: 300),
+            Image.asset('assets/icons/ic_launcher_round.png',
+                height: 300, width: 300),
             ElevatedButton(
               onPressed: () {
-                userController.tempUser.value.credits += 250; // Incrementa los créditos
-                userController.tempUser.value.xp += 1000; // Incrementa la experiencia
-                userController.update(); // Notifica a los widgets que escuchan este estado
-                Get.toNamed('/home');
+                userController.tempUser.value.credits +=
+                    250; // Incrementa los créditos
+                userController.tempUser.value.xp +=
+                    1000; // Incrementa la experiencia
+                userController
+                    .update(); // Notifica a los widgets que escuchan este estado
+                Get.offAllNamed('/home');
               },
               child: const Text('Botón'),
             ),
