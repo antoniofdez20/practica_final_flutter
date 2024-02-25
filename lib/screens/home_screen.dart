@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             : SingleChildScrollView(
                 // Agrega SingleChildScrollView
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 80.0, right: 80.0, top: 16, bottom: 16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

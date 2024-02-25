@@ -4,7 +4,7 @@ import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/screens/screens.dart';
 import 'package:practica_final_flutter/screens/tutorial/end_tutorial_screen.dart';
-import 'package:practica_final_flutter/screens/tutorial/game_screen.dart';
+import 'package:practica_final_flutter/screens/tutorial/category_screen.dart';
 
 import 'screens/tutorial/tutorial_screen.dart';
 
@@ -62,9 +62,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/store', page: () => const StoreScreen()),
         GetPage(name: '/ranking', page: () => const RankingScreen()),
         GetPage(name: '/tutorial', page: () => const TutorialScreen()),
-        GetPage(name: '/tutorial/game', page: () => const GameScreen()),
-        GetPage(
-            name: '/tutorial/game/end', page: () => const EndTutorialScreen()),
+        GetPage(name: '/tutorial/game', page: () => TutorialCategoryScreen()),
+        GetPage(name: '/tutorial/game/end', page: () => EndTutorialScreen()),
       ],
       theme: themeController.currentTheme,
     );

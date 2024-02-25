@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/firebase_users_controller.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
-import 'package:practica_final_flutter/screens/juegoscreen.dart';
+import 'package:practica_final_flutter/screens/tutorial/tutorial_game_screen.dart';
 import 'package:practica_final_flutter/services/triviaservice.dart';
 
-class GameScreen extends StatelessWidget {
-  final int questionCount = 0;
-
-  const GameScreen({super.key});
-
+class TutorialCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FirebaseUsersController>();
@@ -23,7 +19,7 @@ class GameScreen extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.skip_next),
               onPressed: () {
-                Get.offNamed('/home');
+                Get.toNamed('/home');
               },
             ),
           ],
@@ -54,7 +50,8 @@ class GameScreen extends StatelessWidget {
                         try {
                           Preguntas preguntas =
                               await service.getTriviaQuestions('History');
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Get.offAll(
+                              () => TutorialJuegoScreen(preguntas: preguntas));
                         } catch (e) {
                           print(e);
                         }
@@ -76,7 +73,8 @@ class GameScreen extends StatelessWidget {
                         try {
                           Preguntas preguntas =
                               await service.getTriviaQuestions('Geography');
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Get.offAll(
+                              () => TutorialJuegoScreen(preguntas: preguntas));
                         } catch (e) {
                           print(e);
                         }
@@ -100,7 +98,8 @@ class GameScreen extends StatelessWidget {
                           Preguntas preguntas =
                               await service.getTriviaQuestions(
                                   'Art'); // Cambia 'Geography' por 'Art'
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Get.offAll(
+                              () => TutorialJuegoScreen(preguntas: preguntas));
                         } catch (e) {
                           print(e);
                         }
