@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
 
+/// Classe que gestiona les crides a l'API per obtenir les preguntes del quizz.
 class TriviaService extends GetConnect {
   final String _baseUrl = 'https://opentdb.com/api.php';
 
@@ -29,7 +30,8 @@ class TriviaService extends GetConnect {
       'Entertainment: Cartoon & Animations': '32',
     };
 
-   final response = await get('$_baseUrl?amount=10&category=${categoryIds[category]}&type=multiple');
+    final response = await get(
+        '$_baseUrl?amount=10&category=${categoryIds[category]}&type=multiple');
 
     if (response.status.hasError) {
       return Future.error('Error al cargar las preguntas de trivia');
@@ -41,9 +43,12 @@ class TriviaService extends GetConnect {
           var decodedResponseBody = unescape.convert(response.bodyString!);
           return Preguntas.fromJson(decodedResponseBody);
         } catch (e) {
-          print("Intento ${i + 1}: Ocurrió un error al decodificar el JSON: $e");
-          if (i == 3) { // Si es el último intento
-            print("Devolviendo el cuerpo del JSON sin modificar después de varios intentos.");
+          print(
+              "Intento ${i + 1}: Ocurrió un error al decodificar el JSON: $e");
+          if (i == 3) {
+            // Si es el último intento
+            print(
+                "Devolviendo el cuerpo del JSON sin modificar después de varios intentos.");
             return Preguntas.fromJson(response.bodyString!);
           }
           // Espera un poco antes del siguiente intento
@@ -51,7 +56,8 @@ class TriviaService extends GetConnect {
         }
       }
       // Si todos los intentos fallan, devuelve el cuerpo sin decodificar
-      print("Devolviendo el cuerpo del JSON sin modificar después de intentos fallidos.");
+      print(
+          "Devolviendo el cuerpo del JSON sin modificar después de intentos fallidos.");
       return Preguntas.fromJson(response.bodyString!);
     }
   }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/firebase_users_controller.dart';
-import 'package:practica_final_flutter/models/preguntas.dart';
-import 'package:practica_final_flutter/screens/juegoscreen.dart';
-import 'package:practica_final_flutter/services/triviaservice.dart';
+import 'package:practica_final_flutter/screens/tutorial/tutorial_loading_screen.dart';
 
-class GameScreen extends StatelessWidget {
-  int questionCount = 0;
+class TutorialCategoryScreen extends StatelessWidget {
+  const TutorialCategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +19,20 @@ class GameScreen extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.skip_next),
               onPressed: () {
-                Get.toNamed('/home');
+                Get.offNamed('/home');
               },
             ),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 40), // Espacio entre el texto y la imagen
-          const Text("Tria una de les següents categories:", style: TextStyle(fontSize: 24),),
+      body: Column(children: [
+        const SizedBox(height: 40), // Espacio entre el texto y la imagen
+        const Text(
+          "Tria una de les següents categories:",
+          style: TextStyle(fontSize: 24),
+        ),
 
-          controller.users.isEmpty
+        controller.users.isEmpty
             ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.all(80.0),
@@ -46,10 +46,8 @@ class GameScreen extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
-                        TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas = await service.getTriviaQuestions('History');
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Get.offAll(() => const TutorialCargaScreen(categoria: 'History'));
                         } catch (e) {
                           print(e);
                         }
@@ -67,11 +65,8 @@ class GameScreen extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
-                        TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas =
-                              await service.getTriviaQuestions('Geography');
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Get.offAll(() => const TutorialCargaScreen(categoria: 'Geography'));
                         } catch (e) {
                           print(e);
                         }
@@ -90,11 +85,8 @@ class GameScreen extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
-                        TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas =
-                              await service.getTriviaQuestions('Art'); // Cambia 'Geography' por 'Art'
-                          Get.offAll(() => JuegoScreen(preguntas: preguntas));
+                          Get.offAll(() => const TutorialCargaScreen(categoria: 'Art'));
                         } catch (e) {
                           print(e);
                         }
@@ -107,8 +99,7 @@ class GameScreen extends StatelessWidget {
                   ],
                 ),
               ),
-        ]
-      ),
+      ]),
       // No hay BottomNavigationBar aquí
     );
   }

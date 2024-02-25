@@ -1,13 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/screens/carga_screen.dart';
-import 'package:practica_final_flutter/widgets/mydrawer.dart';
-import 'package:practica_final_flutter/widgets/top_app_bar.dart';
+import 'package:practica_final_flutter/widgets/widgets.dart';
 import '../controllers/controllers.dart';
-import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 
+///pantalla principal de la aplicació que conté les diferents categories del quizz
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -20,33 +18,37 @@ class HomeScreen extends StatelessWidget {
         drawer: const MyDrawer(),
         body: controller.users.isEmpty
             ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView( // Agrega SingleChildScrollView
+            : SingleChildScrollView(
+                // Agrega SingleChildScrollView
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(
+                      left: 80.0, right: 80.0, top: 16, bottom: 16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.blueGrey,
                           foregroundColor: Colors.white,
                         ),
-                        onPressed: ()  {
+                        onPressed: () {
                           try {
-                            Get.offAll(() => CargaScreen(categoria: 'General Knowledge'));
+                            Get.offAll(() => const CargaScreen(
+                                categoria: 'General Knowledge'));
                           } catch (e) {
                             print("Error: $e");
                           }
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Saber es poder', style: TextStyle(fontSize: 20)),
+                          child: Text('Saber es poder',
+                              style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
-                     ElevatedButton(
+                      ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.greenAccent,
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () {
@@ -59,41 +61,47 @@ class HomeScreen extends StatelessWidget {
 
                           // Selecciona un índice al azar
                           var rnd = Random();
-                          int indiceCategoria = rnd.nextInt(categoriasCiencia.length);
+                          int indiceCategoria =
+                              rnd.nextInt(categoriasCiencia.length);
 
                           // Selecciona la categoría basada en el índice aleatorio
-                          String categoriaAleatoria = categoriasCiencia[indiceCategoria];
+                          String categoriaAleatoria =
+                              categoriasCiencia[indiceCategoria];
 
                           // Navega a CargaScreen con la categoría seleccionada
-                          Get.offAll(() => CargaScreen(categoria: categoriaAleatoria));
+                          Get.offAll(
+                              () => CargaScreen(categoria: categoriaAleatoria));
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Ciencia', style: TextStyle(fontSize: 20)),
+                          child:
+                              Text('Ciència', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.deepOrange,
                           foregroundColor: Colors.white,
                         ),
-                        onPressed: ()  {
+                        onPressed: () {
                           try {
-                            Get.offAll(() => CargaScreen(categoria: 'Sports'));
+                            Get.offAll(
+                                () => const CargaScreen(categoria: 'Sports'));
                           } catch (e) {
                             print("Error: $e");
                           }
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Deportes', style: TextStyle(fontSize: 20)),
+                          child:
+                              Text('Esports', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.deepPurple,
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () {
@@ -113,17 +121,21 @@ class HomeScreen extends StatelessWidget {
 
                           // Selecciona un índice al azar
                           var rnd = Random();
-                          int indiceCategoria = rnd.nextInt(categoriasEntretenimiento.length);
+                          int indiceCategoria =
+                              rnd.nextInt(categoriasEntretenimiento.length);
 
                           // Selecciona la categoría basada en el índice aleatorio
-                          String categoriaAleatoria = categoriasEntretenimiento[indiceCategoria];
+                          String categoriaAleatoria =
+                              categoriasEntretenimiento[indiceCategoria];
 
                           // Navega a CargaScreen con la categoría seleccionada
-                          Get.offAll(() => CargaScreen(categoria: categoriaAleatoria));
+                          Get.offAll(
+                              () => CargaScreen(categoria: categoriaAleatoria));
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Entretenimiento', style: TextStyle(fontSize: 20)),
+                          child: Text('Entreteniment',
+                              style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -132,16 +144,18 @@ class HomeScreen extends StatelessWidget {
                           backgroundColor: Colors.blue,
                           foregroundColor: Colors.white,
                         ),
-                        onPressed: ()  {
+                        onPressed: () {
                           try {
-                            Get.offAll(() => CargaScreen(categoria: 'History'));
+                            Get.offAll(
+                                () => const CargaScreen(categoria: 'History'));
                           } catch (e) {
                             print("Error: $e");
                           }
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Historia', style: TextStyle(fontSize: 20)),
+                          child:
+                              Text('Història', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -150,16 +164,18 @@ class HomeScreen extends StatelessWidget {
                           backgroundColor: Colors.green,
                           foregroundColor: Colors.white,
                         ),
-                        onPressed: ()  {
+                        onPressed: () {
                           try {
-                            Get.offAll(() => CargaScreen(categoria: 'Geography'));
+                            Get.offAll(() =>
+                                const CargaScreen(categoria: 'Geography'));
                           } catch (e) {
                             print("error");
                           }
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Geografia', style: TextStyle(fontSize: 20)),
+                          child:
+                              Text('Geografia', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -168,17 +184,17 @@ class HomeScreen extends StatelessWidget {
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
                         ),
-                        onPressed: ()  {
-
+                        onPressed: () {
                           try {
-                            Get.offAll(() => CargaScreen(categoria: 'Art'));
+                            Get.offAll(
+                                () => const CargaScreen(categoria: 'Art'));
                           } catch (e) {
                             print("Error: $e");
                           }
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Arte', style: TextStyle(fontSize: 20)),
+                          child: Text('Art', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                     ],

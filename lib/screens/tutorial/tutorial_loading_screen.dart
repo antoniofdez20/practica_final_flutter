@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:practica_final_flutter/screens/juegoscreen.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
+import 'package:practica_final_flutter/screens/screens.dart';
 import 'package:practica_final_flutter/services/triviaservice.dart';
 
-class CargaScreen extends StatefulWidget {
+class TutorialCargaScreen extends StatefulWidget {
   final String categoria; // Agregar un campo para la categoría
-  const CargaScreen({super.key, required this.categoria});
+  const TutorialCargaScreen({super.key, required this.categoria});
 
   @override
-  State<CargaScreen> createState() => _CargaScreenState();
+  State<TutorialCargaScreen> createState() => _TutorialCargaScreenState();
 }
 
-class _CargaScreenState extends State<CargaScreen> {
+class _TutorialCargaScreenState extends State<TutorialCargaScreen> {
   @override
   void initState() {
     super.initState();
@@ -24,7 +24,7 @@ class _CargaScreenState extends State<CargaScreen> {
     try {
       // Usar widget.categoria para cargar la categoría correspondiente
       Preguntas preguntas = await service.getTriviaQuestions(widget.categoria);
-      Get.offAll(() => JuegoScreen(preguntas: preguntas));
+      Get.offAll(() => TutorialJuegoScreen(preguntas: preguntas));
     } catch (e) {
       print("Error al cargar las preguntas de ${widget.categoria}: $e");
       cargarPreguntas();

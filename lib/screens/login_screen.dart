@@ -2,11 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
-import 'package:practica_final_flutter/utils/custom_colors.dart';
-import 'package:practica_final_flutter/utils/custom_input_decoration.dart';
-import 'package:practica_final_flutter/utils/validators.dart';
+import 'package:practica_final_flutter/utils/utils.dart';
 import 'package:practica_final_flutter/widgets/top_app_bar.dart';
 
+/// pantalla principal en cas de que l'usuari no estigui loguejat
+/// permet iniciar sessió o dirigir-se a la pantalla de registre
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -105,7 +105,8 @@ class LoginScreen extends StatelessWidget {
                                       Validators.validateLoginCredentials(
                                           tempUser.value.username,
                                           tempUser.value.contrasenya,
-                                          controller.users);
+                                          controller.users,
+                                          controller);
                                   if (canLogin) {
                                     await controller.saveCredencials(
                                         tempUser.value.username,

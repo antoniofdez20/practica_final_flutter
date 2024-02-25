@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:practica_final_flutter/controllers/themecontroller.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 
+/// Classe que conté la decoració dels inputs de text de la aplicació.
+/// sobretot per els camps del formulari de login i registre.
 class CustomInputDecorations {
   static InputDecoration buildInputDecoration({
     required String labelText,

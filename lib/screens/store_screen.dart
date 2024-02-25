@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
-import 'package:practica_final_flutter/widgets/image_button.dart';
-import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
-import 'package:practica_final_flutter/widgets/mydrawer.dart';
-import '../widgets/counter_aventatges.dart';
-import '../widgets/top_app_bar.dart';
+import 'package:practica_final_flutter/widgets/widgets.dart';
 
+/// pantalla de la botiga on es poden comprar avantatges a canvi de crèdits aconseguits en el joc o tutorial
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
 
@@ -44,7 +41,7 @@ class StoreScreen extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () =>
                   _bottomSheet(context, themeController, userController),
-              child: const Text('Aventatges'),
+              child: const Text('Avantatges'),
             ),
           ),
         ],
@@ -58,7 +55,7 @@ class StoreScreen extends StatelessWidget {
 
     if (userController.tempUser.value.credits < packagePrice) {
       Get.defaultDialog(
-        title: "No tens credits suficients",
+        title: "No tens crèdits suficients",
         content: Image.asset("assets/icons/sin_dinero.png"),
         backgroundColor: Colors.red,
         titleStyle: const TextStyle(
@@ -74,7 +71,7 @@ class StoreScreen extends StatelessWidget {
             child: const Text("OK!"),
           ),
         ],
-      ); 
+      );
     } else {
       userController.tempUser.value.credits -= packagePrice;
       _opening(userController);
@@ -131,9 +128,8 @@ class StoreScreen extends StatelessWidget {
           onPressed: () async {
             await userController.updateUser();
             await userController.saveCredencials(
-              userController.tempUser.value.username,
-              userController.tempUser.value.contrasenya
-            );
+                userController.tempUser.value.username,
+                userController.tempUser.value.contrasenya);
             Get.back();
           },
           style: TextButton.styleFrom(
@@ -156,7 +152,7 @@ class StoreScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 20),
             ),
             const Text(
-              'Aventatges',
+              'Avantatges',
               style: TextStyle(fontSize: 30),
             ),
 

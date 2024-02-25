@@ -2,11 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
-import 'package:practica_final_flutter/utils/custom_colors.dart';
-import 'package:practica_final_flutter/utils/custom_input_decoration.dart';
-import 'package:practica_final_flutter/utils/validators.dart';
+import 'package:practica_final_flutter/utils/utils.dart';
 import 'package:practica_final_flutter/widgets/top_app_bar.dart';
 
+/// pantalla dedicada al registre de nous usuaris
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
 
@@ -169,7 +168,7 @@ class CreateAccountScreen extends StatelessWidget {
                               ),
                               shouldIconPulse: true,
                             );
-                            // Redirige al usuario al home
+                            // Redirige al usuario al breve tutorial
                             Get.offNamed('/tutorial');
                           } catch (e) {
                             // Si la creación del usuario falla, muestra el Snackbar de error

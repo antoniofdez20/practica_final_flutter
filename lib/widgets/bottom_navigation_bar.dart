@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 
-// import '../controllers/themecontroller.dart';
-
+/// Barra de navegación inferior personalizada per mourer-se entre les diferents pantalles de l'aplicació
 class CustomNavigationBar extends StatelessWidget {
   const CustomNavigationBar({super.key});
 
@@ -11,12 +10,8 @@ class CustomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     // Identifica la ruta actual
     String currentRoute = Get.currentRoute;
-      // final themeController = Get.find<ThemeController>();
 
     return BottomAppBar(
-      // shape: const CircularNotchedRectangle(),
-      // notchMargin: 6.0,
-
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -36,9 +31,8 @@ class CustomNavigationBar extends StatelessWidget {
                 color: currentRoute == '/home'
                     ? MyColors.amber
                     : MyColors.cornflower),
-            onPressed: currentRoute == '/home'
-                ? null
-                : () => Get.offAllNamed('/home'),
+            onPressed:
+                currentRoute == '/home' ? null : () => Get.offAllNamed('/home'),
           ),
 
           // const SizedBox(width: ), // Espacio para el botón central

@@ -1,9 +1,15 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/models/models.dart';
 import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/services/services.dart';
 
+/// controlador principal de la aplicació el qual realitza les operacions de CRUD
+/// amb els usuaris de la base de dades de Firebase i a més a més, gestiona les
+/// credencials de l'usuari temporal.
 class FirebaseUsersController extends GetxController {
   final FirebaseRealtimeService _firebaseRealtimeService =
       FirebaseRealtimeService();
@@ -12,8 +18,10 @@ class FirebaseUsersController extends GetxController {
 
   RxBool isPasswordVisible = false.obs;
   RxBool isConfPswVisible = false.obs;
-
+  RxList<User> usersNoAdmin = <User>[].obs;
   RxList<User> users = <User>[].obs;
+  RxList<User> filteredUsers = <User>[].obs;
+  RxString filter = ''.obs;
   Rx<User> tempUser = User(
           id: PreferencesUserLogin.tempUserID,
           contrasenya: PreferencesUserLogin.tempPassword,
@@ -30,10 +38,45 @@ class FirebaseUsersController extends GetxController {
       .obs;
   RxString confirmPassword = ''.obs;
 
-  FirebaseUsersController() {
-    loadUsers();
+  /// Aquesta funció s'executa quan el controlador s'inicialitza, aixi obtenim la llista d'usuaris
+  /// de la base de dades i la ordenem segons la puntuació per després filtrar els 5 primers en el ranking.
+  @override
+  void onInit() {
+    super.onInit();
+    loadUsers().then((_) {
+      sortUsers();
+    });
   }
 
+  void updateFilter(String value) {
+    filter.value = value;
+    filterUsers(value);
+  }
+
+  void sortUsers() {
+    users.sort((a, b) => b.xp.compareTo(a.xp));
+    usersNoAdmin.value =
+        users.where((user) => user.username.toLowerCase() != "admin").toList();
+    filterTopFive();
+  }
+
+  void filterTopFive() {
+    filteredUsers.value = usersNoAdmin.take(5).toList();
+  }
+
+  void filterUsers(String query) {
+    if (query.isNotEmpty) {
+      var tmpList = usersNoAdmin
+          .where((user) =>
+              user.username.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      filteredUsers.value = tmpList.toList();
+    } else {
+      filterTopFive();
+    }
+  }
+
+  ///mètodes per a la gestió de la visibilitat de la contrasenya
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
   }
@@ -42,6 +85,12 @@ class FirebaseUsersController extends GetxController {
     isConfPswVisible.toggle();
   }
 
+  ///mètode per encriptar la contrasenya de l'usuari registrat
+  String hashPassword(String password) {
+    return sha256.convert(utf8.encode(password)).toString();
+  }
+
+  ///mètodes per a les accions CRUD amb la base de dades de Firebase
   Future<void> loadUsers() async {
     users.clear();
     try {
@@ -64,11 +113,13 @@ class FirebaseUsersController extends GetxController {
   }
 
   Future<void> createUser(Rx<User> tempUser) async {
+    tempUser.value.contrasenya = hashPassword(tempUser.value.contrasenya);
     try {
       final userID =
           await _firebaseRealtimeService.addUser(tempUser.value.toMap());
       PreferencesUserLogin.tempUserID = userID;
       await loadUsers();
+      sortUsers();
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al crear usuario: $e');
@@ -107,6 +158,7 @@ class FirebaseUsersController extends GetxController {
       await _firebaseRealtimeService.deleteUser(userID);
       resetCredencials();
       await loadUsers();
+      sortUsers();
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al eliminar usuario: $e');
@@ -118,12 +170,15 @@ class FirebaseUsersController extends GetxController {
     try {
       await _firebaseRealtimeService.updateUser(tempUser.value.toMap(), userID);
       await loadUsers();
+      sortUsers();
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al actualizar usuario: $e');
     }
   }
 
+  ///mètodes per a la gestió de les credencials de l'usuari temporal, d'aquesta manera
+  ///es poden persistir i recuperar les dades de l'usuari temporal.
   Future<void> saveCredencials(String username, String password) async {
     final user = users.firstWhereOrNull((u) => u.username == username);
     if (user != null) {

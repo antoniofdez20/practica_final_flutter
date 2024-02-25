@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:practica_final_flutter/controllers/juegocontroller.dart';
+import 'package:practica_final_flutter/controllers/tutorial_game_controller.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
 import 'package:translator/translator.dart';
 
-/// classe dedicada a la pantalla del joc on es mostren les diferents preguntes
-class JuegoScreen extends StatelessWidget {
+class TutorialJuegoScreen extends StatelessWidget {
   final Preguntas preguntas;
-  final JuegoController controller = Get.put(JuegoController());
+  final TutorialJuegoController controller = Get.put(TutorialJuegoController());
 
-  JuegoScreen({super.key, required this.preguntas});
+  TutorialJuegoScreen({super.key, required this.preguntas});
 
   Future<String> _translateText(String text, String toLanguage) async {
     final translator = GoogleTranslator();
@@ -18,6 +17,7 @@ class JuegoScreen extends StatelessWidget {
           await translator.translate(text, to: toLanguage);
       return translation.text;
     } catch (e) {
+      print('Error de traducción: $e');
       return text; // Devuelve el texto original en caso de error
     }
   }
@@ -57,7 +57,9 @@ class JuegoScreen extends StatelessWidget {
             ),
             ...todasLasRespuestas.map((respuesta) => Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 16.0),
+                    vertical: 8.0,
+                    horizontal: 16.0
+                  ),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -66,15 +68,13 @@ class JuegoScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 40),
+                        vertical: 20, horizontal: 40),
                     ),
-                    onPressed: () => controller.verificarRespuesta(
-                        respuesta, preguntas.results),
+                    onPressed: () => controller.verificarRespuesta(respuesta, preguntas.results),
                     child: FutureBuilder<String>(
                       future: _translateText(respuesta, 'es'),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
                           return const CircularProgressIndicator();
                         }
                         return Text(
