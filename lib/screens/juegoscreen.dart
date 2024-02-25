@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:practica_final_flutter/controllers/juegocontroller.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
 import 'package:translator/translator.dart';
@@ -37,8 +38,23 @@ class JuegoScreen extends StatelessWidget {
         ];
         todasLasRespuestas.shuffle();
 
+        double percent =
+            (controller.preguntaActual.value + 1) / preguntas.results.length;
+
         return ListView(
           children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 5.0),
+              child: LinearPercentIndicator(
+                width: MediaQuery.of(context).size.width - 50,
+                barRadius: const Radius.circular(10.0),
+                alignment: MainAxisAlignment.center,
+                lineHeight: 20.0,
+                percent: percent,
+                center: Text('${(percent * 100).toStringAsFixed(0)}%'),
+                progressColor: Colors.green,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder<String>(
