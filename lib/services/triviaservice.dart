@@ -33,13 +33,13 @@ class TriviaService extends GetConnect {
       Response? response;
     var unescape = HtmlUnescape();
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
       response = await get(
         '$_baseUrl?amount=10&category=${categoryIds[category]}&type=multiple'
       );
 
       if (response.status.hasError) {
-        if (i == 3) { // Si es el último intento
+        if (i == 2) { // Si es el último intento
           print('Error al cargar las preguntas de trivia después de varios intentos.');
           return Future.error('Error al cargar las preguntas de trivia');
         }
