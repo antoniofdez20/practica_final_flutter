@@ -57,7 +57,9 @@ class TutorialJuegoScreen extends StatelessWidget {
             ),
             ...todasLasRespuestas.map((respuesta) => Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 16.0),
+                    vertical: 8.0,
+                    horizontal: 16.0
+                  ),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -66,15 +68,13 @@ class TutorialJuegoScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 40),
+                        vertical: 20, horizontal: 40),
                     ),
-                    onPressed: () => controller.verificarRespuesta(
-                        respuesta, preguntas.results),
+                    onPressed: () => controller.verificarRespuesta(respuesta, preguntas.results),
                     child: FutureBuilder<String>(
                       future: _translateText(respuesta, 'es'),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
                           return const CircularProgressIndicator();
                         }
                         return Text(

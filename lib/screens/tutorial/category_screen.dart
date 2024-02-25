@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/firebase_users_controller.dart';
-import 'package:practica_final_flutter/models/preguntas.dart';
-import 'package:practica_final_flutter/screens/tutorial/tutorial_game_screen.dart';
-import 'package:practica_final_flutter/services/triviaservice.dart';
+import 'package:practica_final_flutter/screens/tutorial/tutorial_loading_screen.dart';
 
 class TutorialCategoryScreen extends StatelessWidget {
   const TutorialCategoryScreen({super.key});
@@ -48,12 +46,8 @@ class TutorialCategoryScreen extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
-                        TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas =
-                              await service.getTriviaQuestions('History');
-                          Get.offAll(
-                              () => TutorialJuegoScreen(preguntas: preguntas));
+                          Get.offAll(() => const TutorialCargaScreen(categoria: 'History'));
                         } catch (e) {
                           print(e);
                         }
@@ -71,12 +65,8 @@ class TutorialCategoryScreen extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
-                        TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas =
-                              await service.getTriviaQuestions('Geography');
-                          Get.offAll(
-                              () => TutorialJuegoScreen(preguntas: preguntas));
+                          Get.offAll(() => const TutorialCargaScreen(categoria: 'Geography'));
                         } catch (e) {
                           print(e);
                         }
@@ -95,13 +85,8 @@ class TutorialCategoryScreen extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
-                        TriviaService service = TriviaService();
                         try {
-                          Preguntas preguntas =
-                              await service.getTriviaQuestions(
-                                  'Art'); // Cambia 'Geography' por 'Art'
-                          Get.offAll(
-                              () => TutorialJuegoScreen(preguntas: preguntas));
+                          Get.offAll(() => const TutorialCargaScreen(categoria: 'Art'));
                         } catch (e) {
                           print(e);
                         }

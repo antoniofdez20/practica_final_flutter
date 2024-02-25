@@ -5,15 +5,13 @@ import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/screens/screens.dart';
 
 void main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); //nos sirve para asegurarnos que el entorno de widgets este inicializado
+  WidgetsFlutterBinding.ensureInitialized(); //nos sirve para asegurarnos que el entorno de widgets este inicializado
   await PreferencesUserLogin.init(); //inicializamos las preferencias de usuario
   await PreferencesTheme.init(); //inicializamos las preferencias de tema
   Get.put(FirebaseUsersController());
   Get.put(NavigationController());
   Get.put(ThemeController());
-  final isLoggedIn = PreferencesUserLogin.tempUsername.isNotEmpty &&
-      PreferencesUserLogin.tempPassword.isNotEmpty;
+  final isLoggedIn = PreferencesUserLogin.tempUsername.isNotEmpty && PreferencesUserLogin.tempPassword.isNotEmpty;
   runApp(MyApp(initialRoute: isLoggedIn ? '/home' : '/login'));
 }
 
@@ -58,9 +56,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/store', page: () => const StoreScreen()),
         GetPage(name: '/ranking', page: () => const RankingScreen()),
         GetPage(name: '/tutorial', page: () => const TutorialScreen()),
-        GetPage(name: '/tutorial/game', page: () => TutorialCategoryScreen()),
-        GetPage(
-            name: '/tutorial/game/end', page: () => const EndTutorialScreen()),
+        GetPage(name: '/tutorial/game', page: () => const TutorialCategoryScreen()),
+        GetPage(name: '/tutorial/game/end', page: () => const EndTutorialScreen()),
       ],
       theme: themeController.currentTheme,
     );
