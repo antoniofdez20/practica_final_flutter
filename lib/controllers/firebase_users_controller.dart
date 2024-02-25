@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/models/models.dart';
@@ -82,6 +85,11 @@ class FirebaseUsersController extends GetxController {
     isConfPswVisible.toggle();
   }
 
+  ///mètode per encriptar la contrasenya de l'usuari registrat
+  String hashPassword(String password) {
+    return sha256.convert(utf8.encode(password)).toString();
+  }
+
   ///mètodes per a les accions CRUD amb la base de dades de Firebase
   Future<void> loadUsers() async {
     users.clear();
@@ -105,6 +113,7 @@ class FirebaseUsersController extends GetxController {
   }
 
   Future<void> createUser(Rx<User> tempUser) async {
+    tempUser.value.contrasenya = hashPassword(tempUser.value.contrasenya);
     try {
       final userID =
           await _firebaseRealtimeService.addUser(tempUser.value.toMap());

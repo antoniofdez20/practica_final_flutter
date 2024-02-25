@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/models/models.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 
@@ -63,8 +64,8 @@ class Validators {
   }
 
   //validacio de les credencials que introdueix l'usuari en el login per identificar-se
-  static bool validateLoginCredentials(
-      String username, String password, List<User> users) {
+  static bool validateLoginCredentials(String username, String password,
+      List<User> users, FirebaseUsersController controller) {
     final User userFinal = users.firstWhere((user) => user.username == username,
         orElse: () => User(
             email: '',
@@ -74,7 +75,8 @@ class Validators {
             username: '',
             avantatges: Avantatges(
                 menys25: 0, menys50: 0, mult15: 0, mult20: 0, resoldre: 0)));
-    if (userFinal.contrasenya == password) {
+    if (userFinal.contrasenya == password ||
+        userFinal.contrasenya == controller.hashPassword(password)) {
       return true; // Las credenciales son correctas
     }
     return false; // Las credenciales son incorrectas

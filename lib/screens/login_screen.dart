@@ -105,7 +105,8 @@ class LoginScreen extends StatelessWidget {
                                       Validators.validateLoginCredentials(
                                           tempUser.value.username,
                                           tempUser.value.contrasenya,
-                                          controller.users);
+                                          controller.users,
+                                          controller);
                                   if (canLogin) {
                                     await controller.saveCredencials(
                                         tempUser.value.username,
