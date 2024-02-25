@@ -33,13 +33,13 @@ class TriviaService extends GetConnect {
       Response? response;
     var unescape = HtmlUnescape();
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
       response = await get(
         '$_baseUrl?amount=10&category=${categoryIds[category]}&type=multiple'
       );
 
       if (response.status.hasError) {
-        if (i == 2) { // Si es el último intento
+        if (i == 1) { // Si es el último intento
           print('Error al cargar las preguntas de trivia después de varios intentos.');
           return Future.error('Error al cargar las preguntas de trivia');
         }
@@ -53,7 +53,7 @@ class TriviaService extends GetConnect {
         return Preguntas.fromJson(decodedResponseBody);
       } catch (e) {
         print("Intento ${i + 1}: Ocurrió un error al decodificar el JSON: $e");
-        if (i == 3) {
+        if (i == 2) {
           print("Devolviendo el cuerpo del JSON sin modificar después del último intento.");
           return Preguntas.fromJson(response.bodyString!);
         }

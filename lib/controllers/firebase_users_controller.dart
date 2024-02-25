@@ -60,21 +60,29 @@ class FirebaseUsersController extends GetxController {
     filterTopFive();
   }
 
-  void filterTopFive() {
-    filteredUsers.value = usersNoAdmin.take(5).toList();
-  }
-
-  void filterUsers(String query) {
-    if (query.isNotEmpty) {
-      var tmpList = usersNoAdmin
-          .where((user) =>
-              user.username.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-      filteredUsers.value = tmpList.toList();
-    } else {
-      filterTopFive();
+ void filterTopFive() {
+  // Crear un mapa para filtrar usuarios duplicados basándose en su ID o username.
+  var uniqueMap = <String, User>{};
+  for (var user in usersNoAdmin) {
+    if (!uniqueMap.containsKey(user.id)) { // Asumiendo que 'id' es único para cada usuario.
+      uniqueMap[user.id!] = user;
     }
   }
+
+  // Tomar los primeros 5 usuarios únicos para el ranking.
+  filteredUsers.value = uniqueMap.values.take(5).toList();
+}
+
+  void filterUsers(String query) {
+  if (query.isNotEmpty) {
+    var tmpList = usersNoAdmin.where((user) => user.username.toLowerCase().contains(query.toLowerCase())).toList();
+    // Usando un Map para eliminar duplicados basados en el ID o username, lo que prefieras
+    var uniqueMap = { for (var user in tmpList) user.id: user };
+    filteredUsers.value = uniqueMap.values.toList();
+  } else {
+    filterTopFive();
+  }
+}
 
   ///mètodes per a la gestió de la visibilitat de la contrasenya
   void togglePasswordVisibility() {
@@ -227,4 +235,16 @@ class FirebaseUsersController extends GetxController {
           resoldre: PreferencesUserLogin.tempResoldre),
     );
   }
+
+   void addXP(int xp) {
+  tempUser.value.xp += xp;
+  updateUser();
+  PreferencesUserLogin.tempXP = tempUser.value.xp;
+}
+
+void addCredits(int credits) {
+  tempUser.value.credits += credits;
+  updateUser();
+  PreferencesUserLogin.tempCredits = tempUser.value.credits;
+}
 }
