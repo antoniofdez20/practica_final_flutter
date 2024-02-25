@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 
+/// Barra de navegación inferior personalizada per mourer-se entre les diferents pantalles de l'aplicació
 class CustomNavigationBar extends StatelessWidget {
   const CustomNavigationBar({super.key});
 

@@ -21,20 +21,20 @@ class EndTutorialScreen extends StatelessWidget {
           children: <Widget>[
             const SizedBox(height: 40), // Espacio entre el texto y la imagen
             const Text(
-              'Enorabona! Has completat el tutorial!',
+              'Enhorabona! Has completat el tutorial!',
               style: TextStyle(fontSize: 24),
             ),
 
             // Afegir experiencias i credits guanyats
             const SizedBox(height: 20), // Espacio entre el texto y la imagen
             const Text(
-              'Experiencia guanyada:\n1000',
+              'Experiència guanyada:\n1000',
               style: TextStyle(fontSize: 20),
             ),
 
             const SizedBox(height: 20), // Espacio entre el texto y la imagen
             const Text(
-              'Credits guanyats:\n250',
+              'Crèdits guanyats:\n250',
               style: TextStyle(fontSize: 20),
             ),
 

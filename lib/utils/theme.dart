@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
 
+/// conté la majoria dels atributs de la aplicació per donar estils a tots dos temes personalitzats.
 class MyTheme {
   static ThemeData get lightTheme {
     return ThemeData(
@@ -18,7 +19,6 @@ class MyTheme {
       bottomAppBarTheme: const BottomAppBarTheme(
         color: MyColors.easternBlue,
       ),
-
 
       // definicion del estilo de la pantalla
       scaffoldBackgroundColor: MyColors.cornflower,
@@ -115,8 +115,6 @@ class MyTheme {
           ),
         ),
       ),
-
-      
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Classe que gestiona les preferències de l'usuari temporal i les persisteix en el dispositiu.
 class PreferencesUserLogin {
   static late SharedPreferences _prefs; //objeto de tipo SharedPreferences
 

@@ -5,6 +5,8 @@ import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/utils.dart';
 import 'package:practica_final_flutter/widgets/top_app_bar.dart';
 
+/// pantalla principal en cas de que l'usuari no estigui loguejat
+/// permet iniciar sessió o dirigir-se a la pantalla de registre
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 

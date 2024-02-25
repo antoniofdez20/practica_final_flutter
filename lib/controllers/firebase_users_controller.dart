@@ -4,6 +4,9 @@ import 'package:practica_final_flutter/models/models.dart';
 import 'package:practica_final_flutter/preferences/preferences.dart';
 import 'package:practica_final_flutter/services/services.dart';
 
+/// controlador principal de la aplicació el qual realitza les operacions de CRUD
+/// amb els usuaris de la base de dades de Firebase i a més a més, gestiona les
+/// credencials de l'usuari temporal.
 class FirebaseUsersController extends GetxController {
   final FirebaseRealtimeService _firebaseRealtimeService =
       FirebaseRealtimeService();
@@ -32,6 +35,8 @@ class FirebaseUsersController extends GetxController {
       .obs;
   RxString confirmPassword = ''.obs;
 
+  /// Aquesta funció s'executa quan el controlador s'inicialitza, aixi obtenim la llista d'usuaris
+  /// de la base de dades i la ordenem segons la puntuació per després filtrar els 5 primers en el ranking.
   @override
   void onInit() {
     super.onInit();
@@ -68,6 +73,7 @@ class FirebaseUsersController extends GetxController {
     }
   }
 
+  ///mètodes per a la gestió de la visibilitat de la contrasenya
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
   }
@@ -76,6 +82,7 @@ class FirebaseUsersController extends GetxController {
     isConfPswVisible.toggle();
   }
 
+  ///mètodes per a les accions CRUD amb la base de dades de Firebase
   Future<void> loadUsers() async {
     users.clear();
     try {
@@ -161,6 +168,8 @@ class FirebaseUsersController extends GetxController {
     }
   }
 
+  ///mètodes per a la gestió de les credencials de l'usuari temporal, d'aquesta manera
+  ///es poden persistir i recuperar les dades de l'usuari temporal.
   Future<void> saveCredencials(String username, String password) async {
     final user = users.firstWhereOrNull((u) => u.username == username);
     if (user != null) {

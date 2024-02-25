@@ -5,6 +5,7 @@ import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/utils.dart';
 import 'package:practica_final_flutter/widgets/top_app_bar.dart';
 
+/// pantalla dedicada al registre de nous usuaris
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
 

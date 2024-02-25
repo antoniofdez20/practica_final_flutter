@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Classe que conté els colors personalitzats de la aplicació.
 class MyColors {
   // Dark Theme
   static const blueCharcoal = Color(0xFF00032e);

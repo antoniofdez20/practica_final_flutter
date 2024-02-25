@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Classe que gestiona les preferències del tema de la aplicació i les persisteix en el dispositiu.
 class PreferencesTheme {
   static late SharedPreferences _prefs;
 

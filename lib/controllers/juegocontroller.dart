@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
 
+/// controlador per la part de quizz de la aplicació, el qual gestiona les preguntes i les respostes
 class JuegoController extends GetxController {
   var preguntaActual = 0.obs;
 
@@ -13,7 +14,8 @@ class JuegoController extends GetxController {
         Get.offAllNamed('/home'); // O mostrar un mensaje de éxito
       }
     } else {
-      Get.offAllNamed('/home'); // Vuelve al inicio si la respuesta es incorrecta
+      Get.offAllNamed(
+          '/home'); // Vuelve al inicio si la respuesta es incorrecta
     }
   }
 }

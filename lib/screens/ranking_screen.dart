@@ -4,6 +4,8 @@ import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/utils.dart';
 import 'package:practica_final_flutter/widgets/widgets.dart';
 
+/// pantalla del ranking de puntuacions dels usuaris
+/// pot mostrar els 5 primers usuaris o els usuaris filtrats
 class RankingScreen extends StatelessWidget {
   const RankingScreen({super.key});
 

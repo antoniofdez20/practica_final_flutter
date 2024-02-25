@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// widget per mostrar l'appbar de la nostra aplicació
 class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 

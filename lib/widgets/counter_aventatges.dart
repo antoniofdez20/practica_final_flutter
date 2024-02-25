@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// widget que mostre la imatge i el contador dels avantatges que té un usuari
 class ImageCounter extends StatelessWidget {
   final String imagePath;
   final String name;

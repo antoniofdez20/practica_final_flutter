@@ -4,6 +4,7 @@ import 'package:practica_final_flutter/controllers/juegocontroller.dart';
 import 'package:practica_final_flutter/models/preguntas.dart';
 import 'package:translator/translator.dart';
 
+/// classe dedicada a la pantalla del joc on es mostren les diferents preguntes
 class JuegoScreen extends StatelessWidget {
   final Preguntas preguntas;
   final JuegoController controller = Get.put(JuegoController());

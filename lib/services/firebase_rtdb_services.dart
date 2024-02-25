@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+/// classe que s'encarrega de les peticions a la base de dades de Firebase
+/// per tal de llegir, escriure, actualitzar i eliminar dades dels usuaris.
 class FirebaseRealtimeService extends GetConnect {
   // La URL base de Firebase debe terminar en `.firebaseio.com`
   final String _baseUrl =
@@ -13,7 +15,6 @@ class FirebaseRealtimeService extends GetConnect {
       // Si hay un error, manejarlo aquí
       return Future.error(response.statusText!);
     } else {
-      // Asegúrate de que el cuerpo de la respuesta no es nulo antes de hacer el cast
       if (response.body != null) {
         return response.body;
       } else {
@@ -38,7 +39,6 @@ class FirebaseRealtimeService extends GetConnect {
       // Si hay un error, manejarlo aquí
       return Future.error(response.statusText!);
     } else {
-      // Asegúrate de que el cuerpo de la respuesta no es nulo antes de hacer el cast
       if (response.body != null) {
         return response.body;
       } else {

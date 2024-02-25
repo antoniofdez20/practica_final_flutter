@@ -5,6 +5,7 @@ import 'package:practica_final_flutter/screens/carga_screen.dart';
 import 'package:practica_final_flutter/widgets/widgets.dart';
 import '../controllers/controllers.dart';
 
+///pantalla principal de la aplicació que conté les diferents categories del quizz
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -74,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
                           child:
-                              Text('Ciencia', style: TextStyle(fontSize: 20)),
+                              Text('Ciència', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -94,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
                           child:
-                              Text('Deportes', style: TextStyle(fontSize: 20)),
+                              Text('Esports', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -133,7 +134,7 @@ class HomeScreen extends StatelessWidget {
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Entretenimiento',
+                          child: Text('Entreteniment',
                               style: TextStyle(fontSize: 20)),
                         ),
                       ),
@@ -154,7 +155,7 @@ class HomeScreen extends StatelessWidget {
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
                           child:
-                              Text('Historia', style: TextStyle(fontSize: 20)),
+                              Text('Història', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -193,7 +194,7 @@ class HomeScreen extends StatelessWidget {
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Arte', style: TextStyle(fontSize: 20)),
+                          child: Text('Art', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                     ],
