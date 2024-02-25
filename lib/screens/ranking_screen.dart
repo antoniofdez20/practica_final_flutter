@@ -88,7 +88,7 @@ class _RankingScreenState extends State<RankingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopAppBar(title: 'Ranking'),
+      appBar: TopAppBar(title: 'Ranking del Saber'),
       drawer: const MyDrawer(),
       body: SingleChildScrollView(
         child: Column(
