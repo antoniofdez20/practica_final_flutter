@@ -30,35 +30,40 @@ class TriviaService extends GetConnect {
       'Entertainment: Cartoon & Animations': '32',
     };
 
-    final response = await get(
-        '$_baseUrl?amount=10&category=${categoryIds[category]}&type=multiple');
+      Response? response;
+    var unescape = HtmlUnescape();
 
-    if (response.status.hasError) {
-      return Future.error('Error al cargar las preguntas de trivia');
-    } else {
-      var unescape = HtmlUnescape();
-      // Intenta decodificar 4 veces
-      for (int i = 0; i < 4; i++) {
-        try {
-          var decodedResponseBody = unescape.convert(response.bodyString!);
-          return Preguntas.fromJson(decodedResponseBody);
-        } catch (e) {
-          print(
-              "Intento ${i + 1}: Ocurrió un error al decodificar el JSON: $e");
-          if (i == 3) {
-            // Si es el último intento
-            print(
-                "Devolviendo el cuerpo del JSON sin modificar después de varios intentos.");
-            return Preguntas.fromJson(response.bodyString!);
-          }
-          // Espera un poco antes del siguiente intento
-          await Future.delayed(Duration(seconds: 1));
+    for (int i = 0; i < 4; i++) {
+      response = await get(
+        '$_baseUrl?amount=10&category=${categoryIds[category]}&type=multiple'
+      );
+
+      if (response.status.hasError) {
+        if (i == 3) { // Si es el último intento
+          print('Error al cargar las preguntas de trivia después de varios intentos.');
+          return Future.error('Error al cargar las preguntas de trivia');
         }
+        print('Error al cargar las preguntas de trivia en el intento ${i + 1}, reintentando...');
+        await Future.delayed(Duration(seconds: 1));
+        continue;
       }
-      // Si todos los intentos fallan, devuelve el cuerpo sin decodificar
-      print(
-          "Devolviendo el cuerpo del JSON sin modificar después de intentos fallidos.");
-      return Preguntas.fromJson(response.bodyString!);
+
+      try {
+        var decodedResponseBody = unescape.convert(response.bodyString!);
+        return Preguntas.fromJson(decodedResponseBody);
+      } catch (e) {
+        print("Intento ${i + 1}: Ocurrió un error al decodificar el JSON: $e");
+        if (i == 3) {
+          print("Devolviendo el cuerpo del JSON sin modificar después del último intento.");
+          return Preguntas.fromJson(response.bodyString!);
+        }
+        // Espera un poco antes del siguiente intento
+        await Future.delayed(Duration(seconds: 1));
+      }
     }
+
+    // Si llega aquí, hubo un error en todos los intentos
+    print("Devolviendo el cuerpo del JSON sin modificar después de intentos fallidos.");
+    return Preguntas.fromJson(response!.bodyString!);
   }
 }
