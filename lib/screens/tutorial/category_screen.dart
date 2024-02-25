@@ -6,6 +6,8 @@ import 'package:practica_final_flutter/screens/tutorial/tutorial_game_screen.dar
 import 'package:practica_final_flutter/services/triviaservice.dart';
 
 class TutorialCategoryScreen extends StatelessWidget {
+  const TutorialCategoryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FirebaseUsersController>();
@@ -19,7 +21,7 @@ class TutorialCategoryScreen extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.skip_next),
               onPressed: () {
-                Get.toNamed('/home');
+                Get.offNamed('/home');
               },
             ),
           ],
