@@ -103,6 +103,7 @@ class FirebaseUsersController extends GetxController {
           await _firebaseRealtimeService.addUser(tempUser.value.toMap());
       PreferencesUserLogin.tempUserID = userID;
       await loadUsers();
+      sortUsers();
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al crear usuario: $e');
@@ -141,6 +142,7 @@ class FirebaseUsersController extends GetxController {
       await _firebaseRealtimeService.deleteUser(userID);
       resetCredencials();
       await loadUsers();
+      sortUsers();
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al eliminar usuario: $e');
@@ -152,6 +154,7 @@ class FirebaseUsersController extends GetxController {
     try {
       await _firebaseRealtimeService.updateUser(tempUser.value.toMap(), userID);
       await loadUsers();
+      sortUsers();
     } catch (e) {
       // Manejar adecuadamente el error
       print('Error al actualizar usuario: $e');

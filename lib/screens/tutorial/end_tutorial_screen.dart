@@ -8,6 +8,7 @@ class EndTutorialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userController = Get.find<FirebaseUsersController>();
+    final tempUser = userController.tempUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -40,16 +41,18 @@ class EndTutorialScreen extends StatelessWidget {
             Image.asset('assets/icons/ic_launcher_round.png',
                 height: 300, width: 300),
             ElevatedButton(
-              onPressed: () {
-                userController.tempUser.value.credits +=
-                    250; // Incrementa los créditos
+              onPressed: () async {
+                tempUser.value.credits += 250; // Incrementa los créditos
                 userController.tempUser.value.xp +=
                     1000; // Incrementa la experiencia
-                userController
-                    .update(); // Notifica a los widgets que escuchan este estado
+                await userController
+                    .updateUser(); //actualizar los valores del usuario
+                await userController.saveCredencials(
+                    tempUser.value.username, tempUser.value.contrasenya);
                 Get.offAllNamed('/home');
               },
-              child: const Text('Acabar Tutorial', style: TextStyle(fontSize: 20)),
+              child:
+                  const Text('Acabar Tutorial', style: TextStyle(fontSize: 20)),
             ),
           ],
         ),

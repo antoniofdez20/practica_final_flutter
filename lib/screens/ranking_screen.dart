@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
-import 'package:practica_final_flutter/utils/custom_colors.dart';
-import 'package:practica_final_flutter/utils/custom_input_decoration.dart';
-import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
-import '../widgets/mydrawer.dart';
-import '../widgets/top_app_bar.dart';
+import 'package:practica_final_flutter/utils/utils.dart';
+import 'package:practica_final_flutter/widgets/widgets.dart';
 
 class RankingScreen extends StatelessWidget {
   const RankingScreen({super.key});

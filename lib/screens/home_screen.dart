@@ -1,12 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/screens/carga_screen.dart';
-import 'package:practica_final_flutter/widgets/mydrawer.dart';
-import 'package:practica_final_flutter/widgets/top_app_bar.dart';
+import 'package:practica_final_flutter/widgets/widgets.dart';
 import '../controllers/controllers.dart';
-import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,7 +20,8 @@ class HomeScreen extends StatelessWidget {
             : SingleChildScrollView(
                 // Agrega SingleChildScrollView
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 80.0, right: 80.0, top: 16, bottom: 16),
+                  padding: const EdgeInsets.only(
+                      left: 80.0, right: 80.0, top: 16, bottom: 16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

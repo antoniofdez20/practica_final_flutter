@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/utils/custom_colors.dart';
-import 'package:practica_final_flutter/widgets/image_button.dart';
-import 'package:practica_final_flutter/widgets/bottom_navigation_bar.dart';
-import 'package:practica_final_flutter/widgets/mydrawer.dart';
-import '../widgets/counter_aventatges.dart';
-import '../widgets/top_app_bar.dart';
+import 'package:practica_final_flutter/widgets/widgets.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
@@ -74,7 +70,7 @@ class StoreScreen extends StatelessWidget {
             child: const Text("OK!"),
           ),
         ],
-      ); 
+      );
     } else {
       userController.tempUser.value.credits -= packagePrice;
       _opening(userController);
@@ -131,9 +127,8 @@ class StoreScreen extends StatelessWidget {
           onPressed: () async {
             await userController.updateUser();
             await userController.saveCredencials(
-              userController.tempUser.value.username,
-              userController.tempUser.value.contrasenya
-            );
+                userController.tempUser.value.username,
+                userController.tempUser.value.contrasenya);
             Get.back();
           },
           style: TextButton.styleFrom(

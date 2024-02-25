@@ -1,3 +1,8 @@
+export 'package:practica_final_flutter/screens/carga_screen.dart';
+export 'package:practica_final_flutter/screens/tutorial/category_screen.dart';
+export 'package:practica_final_flutter/screens/tutorial/end_tutorial_screen.dart';
+export 'package:practica_final_flutter/screens/tutorial/tutorial_game_screen.dart';
+export 'package:practica_final_flutter/screens/tutorial/tutorial_screen.dart';
 export 'package:practica_final_flutter/screens/juegoscreen.dart';
 export 'package:practica_final_flutter/screens/store_screen.dart';
 export 'package:practica_final_flutter/screens/create_account_screen.dart';
