@@ -57,6 +57,7 @@ class JuegoController extends GetxController {
         textConfirm: "Continuar",
         confirmTextColor: Colors.white,
         buttonColor: Colors.green,
+        barrierDismissible: false,
       );
     } else {
       Get.defaultDialog(
@@ -84,6 +85,7 @@ class JuegoController extends GetxController {
         textConfirm: "Aceptar",
         confirmTextColor: Colors.white,
         buttonColor: Colors.red,
+        barrierDismissible: false,
       );
     }
     update();
