@@ -56,7 +56,17 @@ class StoreScreen extends StatelessWidget {
     if (userController.tempUser.value.credits < packagePrice) {
       Get.defaultDialog(
         title: "No tens crèdits suficients",
-        content: Image.asset("assets/icons/sin_dinero.png"),
+        content: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Cada sobre te un cost de 250 crèdits"),
+            SizedBox(height: 20),
+            Image(
+              image: AssetImage('assets/icons/sin_dinero.png'),
+            ),
+          ],
+        
+        ),
         backgroundColor: Colors.red,
         titleStyle: const TextStyle(
             color: MyColors.midnight, fontWeight: FontWeight.w500),
@@ -119,10 +129,16 @@ class StoreScreen extends StatelessWidget {
 
     Get.defaultDialog(
       title: title,
-      content: Image.asset(img),
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("-250 crèdits"),
+          const SizedBox(height: 20),
+          Image.asset(img),
+        ],
+      ),
       backgroundColor: MyColors.amber,
-      titleStyle: const TextStyle(
-          color: MyColors.midnight, fontWeight: FontWeight.w500),
+      titleStyle: const TextStyle(color: MyColors.midnight, fontWeight: FontWeight.w500),
       actions: [
         TextButton(
           onPressed: () async {
