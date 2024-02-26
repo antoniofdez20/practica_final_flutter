@@ -134,6 +134,19 @@ class MyDrawer extends StatelessWidget {
                         Get.offAllNamed('/login');
                       },
                     ),
+                     const SizedBox(height: 20), // Espaciado entre botones
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.verified_user_outlined),
+                      label: const Text('Credits'),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.black54, // Color del botón
+                      ),
+                      onPressed: ()  {
+                        Get.offAllNamed('/credits');
+                      },
+                    ),
+                    
                   ],
                 ),
               ),

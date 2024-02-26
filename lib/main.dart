@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practica_final_flutter/controllers/controllers.dart';
 import 'package:practica_final_flutter/preferences/preferences.dart';
+import 'package:practica_final_flutter/screens/creditos_screen.dart';
 import 'package:practica_final_flutter/screens/screens.dart';
 
 void main() async {
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
           }),
         ),
         GetPage(name: '/store', page: () => const StoreScreen()),
+        GetPage(name: '/credits', page: () =>  CreditosScreen()),
         GetPage(name: '/ranking', page: () => const RankingScreen()),
         GetPage(name: '/tutorial', page: () => const TutorialScreen()),
         GetPage(name: '/tutorial/game', page: () => const TutorialCategoryScreen()),
