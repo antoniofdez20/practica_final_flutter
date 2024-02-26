@@ -247,4 +247,65 @@ void addCredits(int credits) {
   updateUser();
   PreferencesUserLogin.tempCredits = tempUser.value.credits;
 }
+
+void updateUserVentajas() {
+  tempUser.value.avantatges.menys25 = PreferencesUserLogin.tempMenys25;
+  tempUser.value.avantatges.menys50 = PreferencesUserLogin.tempMenys50;
+  tempUser.value.avantatges.mult15 = PreferencesUserLogin.tempMult15;
+  tempUser.value.avantatges.mult20 = PreferencesUserLogin.tempMult20;
+  tempUser.value.avantatges.resoldre = PreferencesUserLogin.tempResoldre;
+  updateUser();
+}
+
+
+  void usarVentaja(String ventaja) {
+    switch (ventaja) {
+      case 'mult15':
+        if (PreferencesUserLogin.tempMult15 > 0) {
+          PreferencesUserLogin.tempMult15--;
+        }
+        break;
+      case 'mult20':
+        if (PreferencesUserLogin.tempMult20 > 0) {
+          PreferencesUserLogin.tempMult20--;
+        }
+        break;
+      case 'menos25':
+        if (PreferencesUserLogin.tempMenys25 > 0) {
+          PreferencesUserLogin.tempMenys25--;
+        }
+        break;
+      case 'menos50':
+        if (PreferencesUserLogin.tempMenys50 > 0) {
+          PreferencesUserLogin.tempMenys50--;
+        }
+        break;
+      case 'resolver':
+        if (PreferencesUserLogin.tempResoldre > 0) {
+          PreferencesUserLogin.tempResoldre--;
+        }
+        break;
+    }
+    updateUserVentajas();  // Actualiza la información en el usuario y posiblemente en Firebase.
+    update();  // Actualiza los widgets que dependen de este controlador.
+  }
+
+  int getVentajaCount(String ventaja) {
+    switch (ventaja) {
+      case 'mult15':
+        return PreferencesUserLogin.tempMult15;
+      case 'mult20':
+        return PreferencesUserLogin.tempMult20;
+      case 'menos25':
+        return PreferencesUserLogin.tempMenys25;
+      case 'menos50':
+        return PreferencesUserLogin.tempMenys50;
+      case 'resolver':
+        return PreferencesUserLogin.tempResoldre;
+      default:
+        return 0;
+    }
+  }
+
+
 }
